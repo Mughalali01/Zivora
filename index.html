@@ -14,40 +14,40 @@
         nav { display: flex; align-items: center; gap: 20px; }
         nav a { color: white; text-decoration: none; font-weight: 600; cursor: pointer; transition: 0.3s; }
         nav a:hover { color: #90caf9; }
-        .cart-icon { background: #1976d2; padding: 6px 12px; border-radius: 20px; font-weight: bold; }
+        .cart-icon { background: #1976d2; padding: 6px 12px; border-radius: 20px; font-weight: bold; cursor: pointer; }
 
         /* Pages Section */
         .page { display: none; padding: 30px 20px; max-width: 1000px; margin: 0 auto; }
         .active-page { display: block; }
 
-        /* Welcome Landing Screen */
-        .welcome-card { background: white; max-width: 450px; margin: 50px auto; padding: 40px; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .welcome-card h2 { color: #0d47a1; margin-bottom: 25px; }
+        /* Welcome Landing Screen & Authentication Forms */
+        .auth-card { background: white; max-width: 450px; margin: 40px auto; padding: 35px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .auth-card h2 { color: #0d47a1; margin-bottom: 20px; text-align: center; }
         .btn-group { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
         .btn { padding: 12px 24px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .btn-primary { background-color: #0d47a1; color: white; }
+        .btn-primary { background-color: #0d47a1; color: white; width: 100%; }
         .btn-secondary { background-color: #e3f2fd; color: #0d47a1; border: 1px solid #0d47a1; }
-        .btn-guest { background-color: #f5f5f5; color: #555; width: 100%; border: 1px solid #ccc; }
+        .btn-guest { background-color: #f5f5f5; color: #555; width: 100%; border: 1px solid #ccc; margin-top: 10px; }
 
-        /* Search & Categories */
+        .auth-form { display: none; margin-top: 15px; text-align: left; }
+        .auth-form.active-form { display: block; }
+
+        /* Search & Real Image Categories */
         .search-bar { width: 100%; max-width: 600px; margin: 20px auto 30px; display: flex; }
         .search-bar input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px 0 0 6px; outline: none; }
         .search-bar button { padding: 12px 25px; background-color: #0d47a1; color: white; border: none; border-radius: 0 6px 6px 0; cursor: pointer; }
         
-        .grid-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; margin-top: 20px; }
-        .cat-card { background: white; padding: 25px; border-radius: 10px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08); font-weight: bold; cursor: pointer; border: 1px solid #e0e0e0; }
-        .cat-card:hover { border-color: #0d47a1; transform: translateY(-3px); transition: 0.2s; }
+        .grid-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+        .cat-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s; border: 1px solid #e0e0e0; text-align: center; }
+        .cat-card:hover { transform: translateY(-5px); border-color: #0d47a1; }
+        .cat-card img { width: 100%; height: 160px; object-fit: cover; }
+        .cat-card h4 { padding: 15px; color: #0d47a1; }
 
         /* Forms Styling */
         .form-box { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); margin-bottom: 20px; }
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
-        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-
-        /* Stepper UI */
-        .stepper { display: flex; justify-content: space-between; margin-bottom: 30px; position: relative; }
-        .step { text-align: center; font-weight: bold; color: #aaa; flex: 1; }
-        .step.active { color: #0d47a1; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
 
         /* Footer */
         footer { text-align: center; padding: 20px; background-color: #0d47a1; color: white; margin-top: 50px; }
@@ -66,20 +66,38 @@
         </nav>
     </header>
 
-    <!-- 1. WELCOME SCREEN -->
+    <!-- 1. WELCOME & AUTH PAGE -->
     <div id="welcome-page" class="page active-page">
-        <div class="welcome-card">
-            <h2>Welcome in Zivora Store</h2>
+        <div class="auth-card">
+            <h2>Welcome to Zivora Store</h2>
             <div class="btn-group">
-                <button class="btn btn-primary" onclick="showPage('home-page')">Sign Up</button>
-                <button class="btn btn-secondary" onclick="showPage('home-page')">Login</button>
+                <button class="btn btn-secondary" onclick="toggleAuth('signup')">Sign Up</button>
+                <button class="btn btn-secondary" onclick="toggleAuth('login')">Login</button>
             </div>
-            <p style="margin: 15px 0;">or</p>
-            <button class="btn btn-guest" onclick="showPage('home-page')">Continue as a Guest</button>
+
+            <!-- Sign Up Form -->
+            <form id="signup-form" class="auth-form active-form" onsubmit="event.preventDefault(); showPage('home-page');">
+                <h3 style="margin-bottom: 10px;">Create Account</h3>
+                <div class="form-group"><label>Full Name</label><input type="text" placeholder="Enter your full name" required></div>
+                <div class="form-group"><label>Email Address</label><input type="email" placeholder="Muhammadalishahid.20077@gmail.com" required></div>
+                <div class="form-group"><label>Password</label><input type="password" placeholder="Create password" required></div>
+                <button type="submit" class="btn btn-primary">Complete Sign Up</button>
+            </form>
+
+            <!-- Login Form -->
+            <form id="login-form" class="auth-form" onsubmit="event.preventDefault(); showPage('home-page');">
+                <h3 style="margin-bottom: 10px;">Account Login</h3>
+                <div class="form-group"><label>Email Address</label><input type="email" placeholder="Muhammadalishahid.20077@gmail.com" required></div>
+                <div class="form-group"><label>Password</label><input type="password" placeholder="Enter password" required></div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+
+            <p style="margin: 15px 0; text-align: center;">or</p>
+            <button class="btn btn-guest" onclick="showPage('home-page')">Continue as Guest</button>
         </div>
     </div>
 
-    <!-- 2. HOME PAGE -->
+    <!-- 2. HOME PAGE WITH REAL IMAGES -->
     <div id="home-page" class="page">
         <div class="search-bar">
             <input type="text" placeholder="Search products...">
@@ -88,102 +106,64 @@
 
         <h2 style="color: #0d47a1; margin-bottom: 15px;">Categories</h2>
         <div class="grid-categories">
-            <div class="cat-card" onclick="addToCart('Kitchen Accessory')">🍳 Kitchen Accessories</div>
-            <div class="cat-card" onclick="addToCart('Mobile Accessory')">📱 Mobile Accessories</div>
-            <div class="cat-card" onclick="addToCart('Jewelry Item')">💍 Jewelry</div>
-            <div class="cat-card" onclick="addToCart('Clothes')">👔 Clothes</div>
-            <div class="cat-card" onclick="addToCart('Watch')">⌚ Watches</div>
+            <div class="cat-card" onclick="addToCart('Kitchen Accessory')">
+                <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=500" alt="Kitchen Accessories">
+                <h4>Kitchen Accessories</h4>
+            </div>
+            <div class="cat-card" onclick="addToCart('Mobile Accessory')">
+                <img src="https://images.unsplash.com/photo-1580910051074-3eb694886505?w=500" alt="Mobile Accessories">
+                <h4>Mobile Accessories</h4>
+            </div>
+            <div class="cat-card" onclick="addToCart('Jewelry Item')">
+                <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500" alt="Jewelry">
+                <h4>Jewelry & Necklaces</h4>
+            </div>
+            <div class="cat-card" onclick="addToCart('Clothes')">
+                <img src="https://images.unsplash.com/photo-1489987707025-afc232f7ea0f?w=500" alt="Clothes">
+                <h4>Clothes & Apparel</h4>
+            </div>
+            <div class="cat-card" onclick="addToCart('Watch')">
+                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" alt="Watches">
+                <h4>Watches</h4>
+            </div>
         </div>
     </div>
 
-    <!-- 3. CHECKOUT / CONTACT & SHIPPING -->
+    <!-- 3. CONTACT PAGE (UPDATED WITH YOUR ACTUAL CONTACT INFO) -->
+    <div id="contact-page" class="page">
+        <div class="form-box">
+            <h2 style="color: #0d47a1;">Ways to Reach Us</h2><br>
+            <p style="margin-bottom: 12px; font-size: 16px;">📞 <strong>Phone Support:</strong> 03216307680</p>
+            <p style="margin-bottom: 12px; font-size: 16px;">💬 <strong>WhatsApp:</strong> <a href="https://wa.me/923216307680" target="_blank" style="color: #0d47a1; text-decoration: none; font-weight: bold;">+92 321 6307680</a></p>
+            <p style="margin-bottom: 12px; font-size: 16px;">✉️ <strong>Email:</strong> <a href="mailto:Muhammadalishahid.20077@gmail.com" style="color: #0d47a1; text-decoration: none; font-weight: bold;">Muhammadalishahid.20077@gmail.com</a></p>
+        </div>
+    </div>
+
+    <!-- 4. CHECKOUT PAGE -->
     <div id="checkout-page" class="page">
         <h2 style="text-align: center; color: #0d47a1; margin-bottom: 20px;">Checkout Details</h2>
-        
-        <div class="stepper">
-            <div class="step active">1. Shipping</div>
-            <div class="step">2. Payment</div>
-            <div class="step">3. Confirm</div>
-        </div>
-
         <div class="form-box">
             <h3>Contact & Shipping Information</h3><br>
-            <div class="form-group"><label>Email Address *</label><input type="email" placeholder="example@mail.com"></div>
-            <div class="form-group"><label>Full Name *</label><input type="text" id="cust-name" placeholder="John Doe"></div>
-            <div class="form-group"><label>WhatsApp Number *</label><input type="text" id="cust-phone" placeholder="+92 300 1234567"></div>
-            <div class="form-group"><label>Full Address *</label><input type="text" id="cust-address" placeholder="House #, Street, City"></div>
-            <div class="form-group"><label>Surname (Optional)</label><input type="text" placeholder="Surname"></div>
-            <div class="form-group"><label>Postal/ZIP Code *</label><input type="text" placeholder="54000"></div>
-            <div class="form-group"><label>Country *</label><input type="text" value="Pakistan"></div>
-            <div class="form-group"><label>State or Province *</label><input type="text" placeholder="Punjab"></div>
-            <div class="form-group"><label>CNIC Number (Optional)</label><input type="text" placeholder="35201-XXXXXXX-X"></div>
-            
-            <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" onclick="showPage('payment-page')">Proceed to Payment</button>
+            <div class="form-group"><label>Email Address *</label><input type="email" placeholder="Muhammadalishahid.20077@gmail.com"></div>
+            <div class="form-group"><label>Full Name *</label><input type="text" placeholder="Your Name"></div>
+            <div class="form-group"><label>WhatsApp Number *</label><input type="text" placeholder="+92 321 6307680"></div>
+            <div class="form-group"><label>Full Address *</label><input type="text" placeholder="House #, Street, City"></div>
+            <button class="btn btn-primary" onclick="showPage('tracking-page')">Place Order</button>
         </div>
     </div>
 
-    <!-- 4. PAYMENT PAGE -->
-    <div id="payment-page" class="page">
-        <h2 style="text-align: center; color: #0d47a1; margin-bottom: 20px;">Payment Options</h2>
-        
-        <div class="form-box">
-            <h3>Select Payment Method</h3><br>
-            
-            <div class="form-group">
-                <input type="radio" name="pay" id="cod" checked> <label style="display:inline;" for="cod">Cash on Delivery (COD)</label>
-            </div>
-            <div class="form-group">
-                <input type="radio" name="pay" id="card"> <label style="display:inline;" for="card">Credit / Debit Card (Visa / Mastercard)</label>
-            </div>
-            <div class="form-group">
-                <input type="radio" name="pay" id="bank"> <label style="display:inline;" for="bank">Direct Bank Transfer / IBAN</label>
-            </div>
-            <div class="form-group">
-                <input type="radio" name="pay" id="wallet"> <label style="display:inline;" for="wallet">JazzCash / EasyPaisa / uPaisa Wallet</label>
-            </div>
-
-            <button class="btn btn-primary" style="width: 100%; margin-top: 15px;" onclick="showPage('preview-page')">Review Order</button>
-        </div>
-    </div>
-
-    <!-- 5. FINAL ORDER PREVIEW -->
-    <div id="preview-page" class="page">
-        <h2 style="text-align: center; color: #0d47a1; margin-bottom: 20px;">Final Order Preview</h2>
-        
-        <div class="form-box">
-            <h3>Shipping Details Summary</h3><br>
-            <p><strong>Name:</strong> <span id="prev-name">Muhammad Bilal</span></p>
-            <p><strong>Address:</strong> <span id="prev-address">House 123, Sector G-10, Islamabad, Pakistan</span></p>
-            <p><strong>WhatsApp:</strong> <span id="prev-phone">+923001234567</span></p>
-            <p><strong>Payment Method:</strong> Cash on Delivery (COD)</p>
-            <hr style="margin: 15px 0;">
-            <p><strong>Total Items in Cart:</strong> <span id="prev-cart">1</span></p>
-            
-            <button class="btn btn-primary" style="width: 100%; margin-top: 20px;" onclick="showPage('tracking-page')">Finalize & Confirm Order</button>
-        </div>
-    </div>
-
-    <!-- 6. ORDER TRACKING PAGE -->
+    <!-- 5. TRACKING PAGE -->
     <div id="tracking-page" class="page">
         <h2 style="text-align: center; color: #0d47a1; margin-bottom: 20px;">ORDER TRACKING</h2>
-        
         <div class="form-box" style="text-align: center;">
             <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                <h4>Tracking Number (Generated Upon Handover):</h4>
+                <h4>Tracking Number:</h4>
                 <h2 style="color: #0d47a1; margin-top: 5px;">ZT0123456789</h2>
             </div>
-
             <div style="background: #fff3e0; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                <h4>Current Shipping Status:</h4>
+                <h4>Shipping Status:</h4>
                 <h2 style="color: #e65100; margin-top: 5px;">IN DELIVER MODE</h2>
             </div>
-
-            <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                <h4>Order Number:</h4>
-                <h3 style="color: #333; margin-top: 5px;">ZIVORD987654321</h3>
-            </div>
-
-            <p style="font-size: 14px; color: #666; margin-top: 15px;">Estimated Delivery: 3-5 business days.<br>Once received, the courier (e.g., TCS) will update our system. Your final confirmation will be 'ORDER RECEIVED'.</p>
         </div>
     </div>
 
@@ -191,23 +171,7 @@
     <div id="about-page" class="page">
         <div class="form-box">
             <h2>About ZIVORA</h2><br>
-            <p><strong>Our Mission & Vision:</strong> Our commitment to quality, curated selection, and unmatched customer satisfaction. We believe in providing you with a superior shopping experience.</p><br>
-            <h3>Why Zivora Stands Apart:</h3>
-            <ul>
-                <li>🎧 Expert 24/7 Support</li>
-                <li>🎁 Exclusive Discounts & Offers</li>
-                <li>🚚 Reliable Global Shipping</li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- CONTACT PAGE -->
-    <div id="contact-page" class="page">
-        <div class="form-box">
-            <h2>Ways to Reach Us</h2><br>
-            <p>📞 <strong>Phone Support:</strong> +92 42 111-ZIVORA</p>
-            <p>💬 <strong>WhatsApp:</strong> +92 321-1234567</p>
-            <p>✉️ <strong>Email:</strong> support@zivora.com</p>
+            <p>Welcome to Zivora Store. We provide high quality products including kitchen accessories, mobile items, jewelry, clothes and watches with fast delivery across Pakistan.</p>
         </div>
     </div>
 
@@ -216,11 +180,10 @@
         <div class="form-box">
             <h2>Our Services</h2><br>
             <p>✔️ Global Sourcing of Quality Products</p>
-            <p>✔️ Speed-optimized Delivery (2-3 Days Domestic)</p>
-            <p>✔️ Real-Time Order Tracking</p>
-            <p>✔️ Priority 24/7 Customer Support</p>
+            <p>✔️ Fast 2-3 Days Domestic Shipping</p>
+            <p>✔️ Real-Time Tracking & Support</p>
         </div>
-    </div>
+    </footer>
 
     <footer>
         <p>&copy; 2026 Zivora Store. All rights reserved.</p>
@@ -234,6 +197,16 @@
             pages.forEach(page => page.classList.remove('active-page'));
             document.getElementById(pageId).classList.add('active-page');
             window.scrollTo(0,0);
+        }
+
+        function toggleAuth(type) {
+            document.getElementById('signup-form').classList.remove('active-form');
+            document.getElementById('login-form').classList.remove('active-form');
+            if(type === 'signup') {
+                document.getElementById('signup-form').classList.add('active-form');
+            } else {
+                document.getElementById('login-form').classList.add('active-form');
+            }
         }
 
         function addToCart(item) {
