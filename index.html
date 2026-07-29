@@ -60,18 +60,33 @@
         .error-msg { color: #d32f2f; font-size: 12px; margin-top: 5px; display: none; font-weight: 600; }
         .show-pass { display: flex; align-items: center; gap: 6px; margin-top: 6px; font-size: 13px; color: #555; cursor: pointer; }
 
-        /* Hero Banner Above Search */
-        .hero-banner {
+        /* LIVE MOVING / SCROLLING BANNER */
+        .banner-container {
             background: linear-gradient(135deg, #0d47a1, #1976d2);
             color: white;
-            padding: 30px 20px;
-            border-radius: 12px;
-            text-align: center;
+            padding: 12px 0;
+            border-radius: 8px;
+            overflow: hidden;
             margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            white-space: nowrap;
+            position: relative;
         }
-        .hero-banner h2 { font-size: 24px; margin-bottom: 8px; }
-        .hero-banner p { font-size: 14px; opacity: 0.9; }
+        
+        .banner-text {
+            display: inline-block;
+            white-space: nowrap;
+            padding-left: 100%;
+            animation: scrollBanner 18s linear infinite;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        @keyframes scrollBanner {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
 
         /* Search & Categories */
         .search-bar { width: 100%; max-width: 600px; margin: 0 auto 25px; display: flex; }
@@ -166,13 +181,14 @@
         </div>
     </div>
 
-    <!-- 2. HOME PAGE WITH BANNER & WORKING SEARCH -->
+    <!-- 2. HOME PAGE WITH LIVE MOVING BANNER -->
     <div id="home-page" class="page">
         
-        <!-- Hero Promotional Banner Above Search -->
-        <div class="hero-banner">
-            <h2>Welcome to Zivora Shopping Zone</h2>
-            <p>Discover Premium Accessories, Clothes, Watches & Kitchen Items</p>
+        <!-- Live Continuous Scrolling Banner -->
+        <div class="banner-container">
+            <div class="banner-text">
+                ✨ Welcome to Zivora Store! Discover Premium Accessories, Clothes, Watches & Kitchen Items — Enjoy Fast Shipping Across Pakistan! ✨
+            </div>
         </div>
 
         <div class="search-bar">
