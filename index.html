@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zivora - Online Store</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+        body { background-color: #f4f7f6; color: #333; }
+        header { background-color: #0d47a1; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
+        header h1 { font-size: 24px; font-weight: bold; }
+        nav a { color: white; margin-left: 20px; text-decoration: none; font-weight: bold; }
+        .hero { text-align: center; padding: 40px 20px; background-color: #e3f2fd; }
+        .hero h2 { color: #0d47a1; font-size: 32px; margin-bottom: 10px; }
+        .container { padding: 30px; max-width: 1100px; margin: 0 auto; }
+        .search-bar { width: 100%; max-width: 500px; margin: 0 auto 30px; display: flex; }
+        .search-bar input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px 0 0 4px; }
+        .search-bar button { padding: 10px 20px; background-color: #0d47a1; color: white; border: none; border-radius: 0 4px 4px 0; cursor: pointer; }
+        .categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; text-align: center; }
+        .card { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-weight: bold; }
+        footer { text-align: center; padding: 20px; background-color: #0d47a1; color: white; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>ZIVORA</h1>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#">Contact Us</a>
+            <a href="#">About</a>
+            <a href="#">Services</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>Welcome in Zivora Store</h2>
+        <p>Your one-stop shop for modern products.</p>
+    </section>
+
+    <div class="container">
+        <div class="search-bar">
+            <input type="text" placeholder="Search products...">
+            <button>Search</button>
+        </div>
+
+        <h3 style="margin-bottom: 20px; color: #0d47a1;">Categories</h3>
+        <div class="categories">
+            <div class="card">🍳 Kitchen Accessories</div>
+            <div class="card">📱 Mobile Accessories</div>
+            <div class="card">💍 Jewelry</div>
+            <div class="card">👔 Clothes</div>
+            <div class="card">⌚ Watches</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Zivora Store. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
