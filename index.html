@@ -6,24 +6,67 @@
     <title>Zivora - Online Store</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background-color: #f4f7f6; color: #333; }
+        body { background-color: #f4f7f6; color: #333; overflow-x: hidden; }
         
-        /* Header & Nav */
-        header { background-color: #0d47a1; color: white; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        header h1 { font-size: 26px; font-weight: bold; cursor: pointer; letter-spacing: 1px; }
-        nav { display: flex; align-items: center; gap: 15px; }
-        nav a { color: white; text-decoration: none; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        /* Header & Nav Layout */
+        header { 
+            background-color: #0d47a1; 
+            color: white; 
+            padding: 12px 20px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1); 
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        header h1 { font-size: 24px; font-weight: bold; cursor: pointer; letter-spacing: 1px; }
+        
+        nav { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        nav a { color: white; text-decoration: none; font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 14px; }
         nav a:hover { color: #90caf9; }
-        .user-badge { background: #1565c0; padding: 6px 12px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 14px; }
-        .cart-icon { background: #1976d2; padding: 6px 12px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 14px; }
+        
+        .user-badge { background: #1565c0; padding: 5px 10px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 13px; white-space: nowrap; }
+        .cart-icon { background: #1976d2; padding: 5px 10px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 13px; white-space: nowrap; }
+
+        /* Responsive Styles for Mobile Screens */
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+                text-align: center;
+            }
+            nav {
+                justify-content: center;
+                gap: 8px 12px;
+                font-size: 13px;
+                width: 100%;
+            }
+            nav a {
+                font-size: 13px;
+            }
+            .user-badge, .cart-icon {
+                font-size: 12px;
+                padding: 4px 8px;
+            }
+            .auth-card {
+                padding: 20px !important;
+                margin: 15px auto !important;
+                width: 100% !important;
+            }
+        }
 
         /* Pages Section */
-        .page { display: none; padding: 30px 20px; max-width: 1000px; margin: 0 auto; }
+        .page { display: none; padding: 20px 15px; max-width: 1000px; margin: 0 auto; }
         .active-page { display: block; }
 
         /* Welcome Landing Screen & Authentication Forms */
         .auth-card { background: white; max-width: 450px; margin: 30px auto; padding: 35px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .auth-card h2 { color: #0d47a1; margin-bottom: 20px; text-align: center; }
+        .auth-card h2 { color: #0d47a1; margin-bottom: 20px; text-align: center; font-size: 22px; }
         .btn-group { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
         .btn { padding: 12px 24px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; }
         .btn-primary { background-color: #0d47a1; color: white; width: 100%; }
@@ -35,29 +78,29 @@
         .error-msg { color: #d32f2f; font-size: 12px; margin-top: 5px; display: none; font-weight: 600; }
 
         /* Search & Categories */
-        .search-bar { width: 100%; max-width: 600px; margin: 20px auto 30px; display: flex; }
-        .search-bar input { width: 100%; padding: 12px; border: 1px solid #ccc; border-radius: 6px 0 0 6px; outline: none; }
-        .search-bar button { padding: 12px 25px; background-color: #0d47a1; color: white; border: none; border-radius: 0 6px 6px 0; cursor: pointer; }
+        .search-bar { width: 100%; max-width: 600px; margin: 15px auto 25px; display: flex; }
+        .search-bar input { width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 6px 0 0 6px; outline: none; }
+        .search-bar button { padding: 10px 20px; background-color: #0d47a1; color: white; border: none; border-radius: 0 6px 6px 0; cursor: pointer; }
         
-        .grid-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-top: 20px; }
+        .grid-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 15px; margin-top: 15px; }
         .cat-card { background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.1); cursor: pointer; transition: transform 0.2s; border: 1px solid #e0e0e0; text-align: center; }
         .cat-card:hover { transform: translateY(-5px); border-color: #0d47a1; }
-        .cat-card img { width: 100%; height: 160px; object-fit: cover; }
-        .cat-card h4 { padding: 15px; color: #0d47a1; }
+        .cat-card img { width: 100%; height: 140px; object-fit: cover; }
+        .cat-card h4 { padding: 12px; color: #0d47a1; font-size: 14px; }
 
         /* Forms Styling */
-        .form-box { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); margin-bottom: 20px; }
+        .form-box { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); margin-bottom: 20px; }
         .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
+        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; }
 
         /* Profile Details Box */
-        .profile-card { background: white; padding: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); max-width: 500px; margin: 0 auto; }
+        .profile-card { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); max-width: 500px; margin: 0 auto; }
         .profile-card h3 { color: #0d47a1; margin-bottom: 15px; border-bottom: 2px solid #e3f2fd; padding-bottom: 10px; }
-        .profile-info { margin-bottom: 12px; font-size: 16px; }
+        .profile-info { margin-bottom: 12px; font-size: 15px; word-break: break-all; }
 
         /* Footer */
-        footer { text-align: center; padding: 20px; background-color: #0d47a1; color: white; margin-top: 50px; }
+        footer { text-align: center; padding: 15px; background-color: #0d47a1; color: white; margin-top: 40px; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -85,7 +128,7 @@
 
             <!-- Sign Up Form -->
             <form id="signup-form" class="auth-form active-form" onsubmit="handleSignUp(event)">
-                <h3 style="margin-bottom: 10px;">Create Account</h3>
+                <h3 style="margin-bottom: 10px; font-size: 18px;">Create Account</h3>
                 <div class="form-group">
                     <label>Full Name</label>
                     <input type="text" id="su-name" placeholder="Enter your full name" required>
@@ -104,7 +147,7 @@
 
             <!-- Login Form -->
             <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
-                <h3 style="margin-bottom: 10px;">Account Login</h3>
+                <h3 style="margin-bottom: 10px; font-size: 18px;">Account Login</h3>
                 <div class="form-group">
                     <label>Email Address</label>
                     <input type="email" id="lg-email" placeholder="name@example.com" required>
@@ -128,7 +171,7 @@
             <button>Search</button>
         </div>
 
-        <h2 style="color: #0d47a1; margin-bottom: 15px;">Categories</h2>
+        <h2 style="color: #0d47a1; margin-bottom: 15px; font-size: 20px;">Categories</h2>
         <div class="grid-categories">
             <div class="cat-card" onclick="addToCart('Kitchen Accessory')">
                 <img src="https://images.unsplash.com/photo-1556911220-e15b29be8c8f?w=500" alt="Kitchen Accessories">
@@ -153,7 +196,7 @@
         </div>
     </div>
 
-    <!-- 3. PROFILE PAGE (LIKE ALIEXPRESS) -->
+    <!-- 3. PROFILE PAGE -->
     <div id="profile-page" class="page">
         <div class="profile-card">
             <h3>My Account Profile</h3>
@@ -165,24 +208,24 @@
         </div>
     </div>
 
-    <!-- 4. CONTACT PAGE (WITH YOUR OFFICIAL INFO) -->
+    <!-- 4. CONTACT PAGE -->
     <div id="contact-page" class="page">
         <div class="form-box">
-            <h2 style="color: #0d47a1;">Ways to Reach Us</h2><br>
-            <p style="margin-bottom: 12px; font-size: 16px;">📞 <strong>Phone Support:</strong> 03216307680</p>
-            <p style="margin-bottom: 12px; font-size: 16px;">💬 <strong>WhatsApp:</strong> <a href="https://wa.me/923216307680" target="_blank" style="color: #0d47a1; text-decoration: none; font-weight: bold;">+92 321 6307680</a></p>
-            <p style="margin-bottom: 12px; font-size: 16px;">✉️ <strong>Email:</strong> <a href="mailto:Muhammadalishahid.20077@gmail.com" style="color: #0d47a1; text-decoration: none; font-weight: bold;">Muhammadalishahid.20077@gmail.com</a></p>
+            <h2 style="color: #0d47a1; font-size: 20px;">Ways to Reach Us</h2><br>
+            <p style="margin-bottom: 12px; font-size: 15px;">📞 <strong>Phone Support:</strong> 03216307680</p>
+            <p style="margin-bottom: 12px; font-size: 15px;">💬 <strong>WhatsApp:</strong> <a href="https://wa.me/923216307680" target="_blank" style="color: #0d47a1; text-decoration: none; font-weight: bold;">+92 321 6307680</a></p>
+            <p style="margin-bottom: 12px; font-size: 15px;">✉️ <strong>Email:</strong> <a href="mailto:Muhammadalishahid.20077@gmail.com" style="color: #0d47a1; text-decoration: none; font-weight: bold;">Muhammadalishahid.20077@gmail.com</a></p>
         </div>
     </div>
 
     <!-- 5. CHECKOUT PAGE -->
     <div id="checkout-page" class="page">
-        <h2 style="text-align: center; color: #0d47a1; margin-bottom: 20px;">Checkout Details</h2>
+        <h2 style="text-align: center; color: #0d47a1; margin-bottom: 20px; font-size: 20px;">Checkout Details</h2>
         <div class="form-box">
-            <h3>Contact & Shipping Information</h3><br>
+            <h3 style="font-size: 16px;">Contact & Shipping Information</h3><br>
             <div class="form-group"><label>Email Address *</label><input type="email" id="co-email" placeholder="name@example.com"></div>
             <div class="form-group"><label>Full Name *</label><input type="text" id="co-name" placeholder="Enter full name"></div>
-            <div class="form-group"><label>WhatsApp Number *</label><input type="text" placeholder="+92 300 1234567"></div>
+            <div class="form-group"><label>WhatsApp Number *</label><input type="text" placeholder="+92 321 6307680"></div>
             <div class="form-group"><label>Full Address *</label><input type="text" placeholder="House #, Street, City"></div>
             <button class="btn btn-primary" onclick="showPage('tracking-page')">Place Order</button>
         </div>
@@ -190,15 +233,15 @@
 
     <!-- 6. TRACKING PAGE -->
     <div id="tracking-page" class="page">
-        <h2 style="text-align: center; color: #0d47a1; margin-bottom: 20px;">ORDER TRACKING</h2>
+        <h2 style="text-align: center; color: #0d47a1; margin-bottom: 20px; font-size: 20px;">ORDER TRACKING</h2>
         <div class="form-box" style="text-align: center;">
             <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
                 <h4>Tracking Number:</h4>
-                <h2 style="color: #0d47a1; margin-top: 5px;">ZT0123456789</h2>
+                <h2 style="color: #0d47a1; margin-top: 5px; font-size: 20px;">ZT0123456789</h2>
             </div>
             <div style="background: #fff3e0; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
                 <h4>Shipping Status:</h4>
-                <h2 style="color: #e65100; margin-top: 5px;">IN DELIVER MODE</h2>
+                <h2 style="color: #e65100; margin-top: 5px; font-size: 20px;">IN DELIVER MODE</h2>
             </div>
         </div>
     </div>
@@ -206,7 +249,7 @@
     <!-- ABOUT PAGE -->
     <div id="about-page" class="page">
         <div class="form-box">
-            <h2>About ZIVORA</h2><br>
+            <h2 style="font-size: 20px; color: #0d47a1;">About ZIVORA</h2><br>
             <p>Welcome to Zivora Store. We provide high quality products including kitchen accessories, mobile items, jewelry, clothes and watches with fast delivery across Pakistan.</p>
         </div>
     </div>
@@ -214,9 +257,9 @@
     <!-- SERVICES PAGE -->
     <div id="services-page" class="page">
         <div class="form-box">
-            <h2>Our Services</h2><br>
-            <p>✔️ Global Sourcing of Quality Products</p>
-            <p>✔️ Fast 2-3 Days Domestic Shipping</p>
+            <h2 style="font-size: 20px; color: #0d47a1;">Our Services</h2><br>
+            <p style="margin-bottom: 8px;">✔️ Global Sourcing of Quality Products</p>
+            <p style="margin-bottom: 8px;">✔️ Fast 2-3 Days Domestic Shipping</p>
             <p>✔️ Real-Time Tracking & Support</p>
         </div>
     </div>
@@ -253,7 +296,6 @@
             let pass = document.getElementById('su-pass').value;
             let passErr = document.getElementById('pass-err');
 
-            // Strong Password Regex: Min 8 chars, 1 Upper, 1 Lower, 1 Number, 1 Special Char
             let strongPassRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
             if (!strongPassRegex.test(pass)) {
@@ -263,7 +305,6 @@
                 passErr.style.display = 'none';
             }
 
-            // Save user details
             updateUserSession(name, email);
             showPage('home-page');
         }
@@ -271,7 +312,7 @@
         function handleLogin(e) {
             e.preventDefault();
             let email = document.getElementById('lg-email').value.trim();
-            let name = email.split('@')[0]; // Temporary name display from email
+            let name = email.split('@')[0];
             updateUserSession(name, email);
             showPage('home-page');
         }
@@ -285,7 +326,6 @@
             currentUser.name = name;
             currentUser.email = email;
 
-            // Update UI elements
             document.getElementById('nav-user-name').innerText = name;
             document.getElementById('prof-name').innerText = name;
             document.getElementById('prof-email').innerText = email;
