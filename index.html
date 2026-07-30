@@ -29,8 +29,8 @@
         nav a { color: white; text-decoration: none; font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 14px; }
         nav a:hover { color: #90caf9; }
         
-        .user-badge { background: #1565c0; padding: 5px 10px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 13px; white-space: nowrap; }
-        .cart-icon { background: #1976d2; padding: 5px 10px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 13px; white-space: nowrap; }
+        .user-badge { background: #1565c0; padding: 5px 10px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 13px; white-space: nowrap; display: none; }
+        .cart-icon { background: #1976d2; padding: 5px 10px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 13px; white-space: nowrap; display: none; }
 
         /* Mobile Responsive */
         @media (max-width: 600px) {
@@ -136,14 +136,14 @@
 <body>
 
     <header>
-        <h1 onclick="showPage('home-page')">ZIVORA</h1>
+        <h1 onclick="navigateToHome()">ZIVORA</h1>
         <nav>
-            <a onclick="showPage('home-page')">Home</a>
+            <a onclick="navigateToHome()">Home</a>
             <a onclick="showPage('contact-page')">Contact Us</a>
             <a onclick="showPage('about-page')">About</a>
             <a onclick="showPage('services-page')">Services</a>
-            <span class="user-badge" onclick="showPage('profile-page')">👤 <span id="nav-user-name">Guest</span></span>
-            <span class="cart-icon" onclick="showPage('checkout-page')">🛒 Cart (<span id="cart-count">0</span>)</span>
+            <span class="user-badge" id="nav-user-btn" onclick="showPage('profile-page')">👤 <span id="nav-user-name">Guest</span></span>
+            <span class="cart-icon" id="nav-cart-btn" onclick="showPage('checkout-page')">🛒 Cart (<span id="cart-count">0</span>)</span>
         </nav>
     </header>
 
@@ -325,12 +325,12 @@
 
     <script>
         let cart = 0;
-        let currentUser = { name: 'Guest', email: 'Not Logged In' };
+        let isAuthenticated = false; // Security Flag
 
         // Local Storage database simulation for registered users
         let registeredUsers = JSON.parse(localStorage.getItem('zivora_users')) || [];
 
-        // Database of Products inside Sub-Categories (All Images Working)
+        // Database of Products inside Sub-Categories
         const storeData = {
             kitchen: {
                 title: "Kitchen Accessories",
@@ -377,11 +377,32 @@
             }
         };
 
+        // AUTO LOGIN ON PAGE LOAD
+        window.onload = function() {
+            let activeSession = JSON.parse(localStorage.getItem('zivora_active_session'));
+            if (activeSession) {
+                updateUserSession(activeSession.name, activeSession.email, false);
+                showPage('home-page');
+            } else {
+                showPage('welcome-page');
+            }
+        };
+
         function showPage(pageId) {
             let pages = document.querySelectorAll('.page');
             pages.forEach(page => page.classList.remove('active-page'));
             document.getElementById(pageId).classList.add('active-page');
             window.scrollTo(0,0);
+        }
+
+        // HOME NAVIGATION SECURITY CHECK
+        function navigateToHome() {
+            if (isAuthenticated) {
+                showPage('home-page');
+            } else {
+                alert('Please Login, Sign Up, or Continue as Guest to access the Home Store.');
+                showPage('welcome-page');
+            }
         }
 
         function openCategory(categoryKey) {
@@ -429,7 +450,6 @@
             let passErr = document.getElementById('pass-err');
             let emailExistErr = document.getElementById('email-exist-err');
 
-            // Check if email already exists
             let existingUser = registeredUsers.find(u => u.email === email);
             if (existingUser) {
                 emailExistErr.style.display = 'block';
@@ -447,12 +467,11 @@
                 passErr.style.display = 'none';
             }
 
-            // Save new user
             registeredUsers.push({ name, email, pass });
             localStorage.setItem('zivora_users', JSON.stringify(registeredUsers));
 
             alert('Account created successfully! Welcome to Zivora.');
-            updateUserSession(name, email);
+            updateUserSession(name, email, true);
             showPage('home-page');
         }
 
@@ -466,7 +485,7 @@
 
             if (foundUser) {
                 loginErr.style.display = 'none';
-                updateUserSession(foundUser.name, foundUser.email);
+                updateUserSession(foundUser.name, foundUser.email, true);
                 showPage('home-page');
             } else {
                 loginErr.style.display = 'block';
@@ -474,25 +493,43 @@
         }
 
         function continueAsGuest() {
-            updateUserSession('Guest', 'Guest Session');
+            updateUserSession('Guest', 'Guest Session', false);
             showPage('home-page');
         }
 
         function logoutUser() {
-            updateUserSession('Guest', 'Not Logged In');
+            // Reset Cart to 0
+            cart = 0;
+            document.getElementById('cart-count').innerText = cart;
+
+            // Clear Active Session
+            localStorage.removeItem('zivora_active_session');
+            isAuthenticated = false;
+
+            // Hide Navbar Buttons
+            document.getElementById('nav-user-btn').style.display = 'none';
+            document.getElementById('nav-cart-btn').style.display = 'none';
+
             alert('You have logged out successfully.');
             showPage('welcome-page');
         }
 
-        function updateUserSession(name, email) {
-            currentUser.name = name;
-            currentUser.email = email;
+        function updateUserSession(name, email, saveSession) {
+            isAuthenticated = true;
+
+            if (saveSession) {
+                localStorage.setItem('zivora_active_session', JSON.stringify({ name, email }));
+            }
 
             document.getElementById('nav-user-name').innerText = name;
             document.getElementById('prof-name').innerText = name;
             document.getElementById('prof-email').innerText = email;
             document.getElementById('co-name').value = name !== 'Guest' ? name : '';
             document.getElementById('co-email').value = email !== 'Guest Session' ? email : '';
+
+            // Show Nav Buttons
+            document.getElementById('nav-user-btn').style.display = 'inline-block';
+            document.getElementById('nav-cart-btn').style.display = 'inline-block';
         }
 
         function filterCategories() {
