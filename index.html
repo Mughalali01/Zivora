@@ -23,14 +23,22 @@
             flex-wrap: wrap;
             gap: 10px;
         }
-        header h1 { font-size: 24px; font-weight: bold; cursor: pointer; letter-spacing: 1px; }
+        header h1 { 
+            font-size: 24px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            letter-spacing: 1px; 
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        header h1:hover { color: #90caf9; }
         
         nav { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
         nav a { color: white; text-decoration: none; font-weight: 600; cursor: pointer; transition: 0.3s; font-size: 14px; }
         nav a:hover { color: #90caf9; }
         
-        .user-badge { background: #1565c0; padding: 5px 10px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 13px; white-space: nowrap; display: none; }
-        .cart-icon { background: #1976d2; padding: 5px 10px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 13px; white-space: nowrap; display: none; }
+        .admin-nav-btn { background: #ff9800; color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 13px; cursor: pointer; display: none; }
+        .cart-icon { background: #1976d2; padding: 5px 12px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 13px; white-space: nowrap; }
 
         /* Live Scrolling Strip */
         .marquee-strip {
@@ -60,30 +68,13 @@
         @media (max-width: 768px) {
             header { flex-direction: column; align-items: center; padding: 10px; text-align: center; }
             nav { justify-content: center; gap: 8px 12px; font-size: 13px; width: 100%; }
-            .user-badge, .cart-icon { font-size: 12px; padding: 4px 8px; }
+            .cart-icon { font-size: 12px; padding: 4px 8px; }
             .checkout-grid { flex-direction: column !important; }
         }
 
         /* Pages Section */
         .page { display: none; padding: 20px 15px; max-width: 1000px; margin: 0 auto; }
         .active-page { display: block; }
-
-        /* Auth Screen */
-        .auth-card { background: white; max-width: 450px; margin: 30px auto; padding: 35px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        .auth-card h2 { color: #0d47a1; margin-bottom: 20px; text-align: center; font-size: 22px; }
-        .btn-group { display: flex; gap: 10px; justify-content: center; margin-bottom: 20px; }
-        .btn { padding: 12px 24px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .btn-primary { background-color: #0d47a1; color: white; width: 100%; }
-        .btn-secondary { background-color: #e3f2fd; color: #0d47a1; border: 1px solid #0d47a1; }
-        .btn-danger { background-color: #d32f2f; color: white; width: 100%; margin-top: 10px; }
-        .btn-guest { background-color: #f5f5f5; color: #555; width: 100%; border: 1px solid #ccc; margin-top: 10px; }
-
-        .auth-form { display: none; margin-top: 15px; text-align: left; }
-        .auth-form.active-form { display: block; }
-        .error-msg { color: #d32f2f; font-size: 12px; margin-top: 5px; display: none; font-weight: 600; }
-        
-        .show-pass { display: flex; align-items: center; gap: 8px; margin-top: 8px; font-size: 14px; color: #333; cursor: pointer; font-weight: 500; }
-        .show-pass input[type="checkbox"] { width: 16px; height: 16px; cursor: pointer; }
 
         /* Search & Categories */
         .search-bar { width: 100%; max-width: 600px; margin: 0 auto 25px; display: flex; }
@@ -109,19 +100,21 @@
         .qty-box input { width: 55px; padding: 5px; text-align: center; border: 1px solid #ccc; border-radius: 4px; font-weight: bold; }
 
         .back-btn { background: #e3f2fd; color: #0d47a1; border: none; padding: 8px 15px; border-radius: 5px; font-weight: bold; cursor: pointer; margin-bottom: 15px; }
+        .btn { padding: 10px 20px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn-primary { background-color: #0d47a1; color: white; width: 100%; }
+        .btn-danger { background-color: #d32f2f; color: white; }
 
         /* Form Box */
         .form-box { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); margin-bottom: 20px; }
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
-        .form-group input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; }
+        .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; }
 
         /* CHECKOUT SPLIT LAYOUT */
         .checkout-grid { display: flex; gap: 20px; align-items: flex-start; }
         .checkout-left { flex: 1; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
         .checkout-right { flex: 1; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border: 1px solid #e3f2fd; }
         
-        /* PAYMENT METHOD CARDS (HIGHLIGHT ON SELECT) */
         .payment-options-title { font-size: 15px; font-weight: bold; color: #0d47a1; margin: 20px 0 10px; border-top: 1px solid #eee; padding-top: 15px; }
         .payment-option-card {
             border: 2px solid #e0e0e0;
@@ -132,10 +125,7 @@
             transition: all 0.2s ease-in-out;
             background-color: #fafafa;
         }
-        .payment-option-card:hover {
-            border-color: #90caf9;
-        }
-        /* Highlight style when selected */
+        .payment-option-card:hover { border-color: #90caf9; }
         .payment-option-card.selected {
             border-color: #0d47a1 !important;
             background-color: #e3f2fd !important;
@@ -150,12 +140,41 @@
         .cart-summary-item span { font-size: 14px; }
         .summary-total { margin-top: 15px; padding-top: 15px; border-top: 2px solid #0d47a1; font-weight: bold; font-size: 16px; display: flex; justify-content: space-between; }
 
+        /* HIDDEN ADMIN MODAL */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-box {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 420px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            position: relative;
+        }
+        .modal-box h3 { color: #0d47a1; margin-bottom: 15px; text-align: center; }
+        .close-modal { position: absolute; top: 10px; right: 15px; font-size: 20px; cursor: pointer; color: #777; }
+
+        /* ADMIN DASHBOARD STYLES */
+        .order-card-admin { background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 5px solid #0d47a1; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .order-card-admin header { background: none; box-shadow: none; color: #333; padding: 0; margin-bottom: 10px; }
+        .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; }
+        .status-pending { background: #fff3e0; color: #e65100; }
+        .status-shipped { background: #e3f2fd; color: #0d47a1; }
+        .status-delivered { background: #e8f5e9; color: #2e7d32; }
+
         /* FOOTER & LOGO PAYMENT BADGES */
         footer { text-align: center; padding: 25px 15px; background-color: #0b2240; color: white; margin-top: 40px; }
         .payment-section { margin-bottom: 15px; }
         .payment-title { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #90caf9; margin-bottom: 15px; }
         .payment-badges { display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap; }
-        
         .logo-card { 
             background: white; 
             padding: 5px 12px; 
@@ -171,14 +190,21 @@
 <body>
 
     <header>
-        <h1 onclick="navigateToHome()">ZIVORA</h1>
+        <!-- 10 SECOND LONG PRESS TRIGGER ON ZIVORA LOGO -->
+        <h1 id="secret-logo-btn" 
+            onmousedown="startPressTimer()" 
+            onmouseup="cancelPressTimer()" 
+            onmouseleave="cancelPressTimer()"
+            ontouchstart="startPressTimer()" 
+            ontouchend="cancelPressTimer()">ZIVORA</h1>
+            
         <nav>
-            <a onclick="navigateToHome()">Home</a>
+            <a onclick="showPage('home-page')">Home</a>
             <a onclick="showPage('contact-page')">Contact Us</a>
             <a onclick="showPage('about-page')">About</a>
             <a onclick="showPage('services-page')">Services</a>
-            <span class="user-badge" id="nav-user-btn" onclick="showPage('profile-page')">👤 <span id="nav-user-name">Guest</span></span>
-            <span class="cart-icon" id="nav-cart-btn" onclick="showPage('checkout-page')">🛒 Cart (<span id="cart-count">0</span>)</span>
+            <span class="admin-nav-btn" id="admin-dashboard-link" onclick="showPage('admin-dashboard-page')">🔐 Admin Panel</span>
+            <span class="cart-icon" onclick="showPage('checkout-page')">🛒 Cart (<span id="cart-count">0</span>)</span>
         </nav>
     </header>
 
@@ -189,64 +215,31 @@
         </marquee>
     </div>
 
-    <!-- 1. WELCOME & AUTH PAGE -->
-    <div id="welcome-page" class="page active-page">
-        <div class="auth-card">
-            <h2>Welcome to Zivora Store</h2>
-            <div class="btn-group">
-                <button class="btn btn-secondary" onclick="toggleAuth('signup')">Sign Up</button>
-                <button class="btn btn-secondary" onclick="toggleAuth('login')">Login</button>
-            </div>
-
-            <!-- Sign Up Form -->
-            <form id="signup-form" class="auth-form active-form" onsubmit="handleSignUp(event)">
-                <h3 style="margin-bottom: 10px; font-size: 18px;">Create Account</h3>
+    <!-- SECRET HIDDEN ADMIN MODAL LOGIN -->
+    <div class="modal-overlay" id="admin-login-modal">
+        <div class="modal-box">
+            <span class="close-modal" onclick="closeAdminModal()">&times;</span>
+            <h3>Please Enter Your Information</h3>
+            <form onsubmit="handleAdminLogin(event)">
                 <div class="form-group">
-                    <label>Full Name</label>
-                    <input type="text" id="su-name" placeholder="Enter your full name" required>
+                    <label>Name</label>
+                    <input type="text" id="admin-name-input" placeholder="Enter Admin Name" required>
                 </div>
                 <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="su-email" placeholder="name@example.com" required>
-                    <div id="email-exist-err" class="error-msg">This email is already registered. Please Login.</div>
+                    <label>Email</label>
+                    <input type="email" id="admin-email-input" placeholder="Enter Admin Email" required>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" id="su-pass" placeholder="Create strong password" required>
-                    <label class="show-pass">
-                        <input type="checkbox" onclick="togglePasswordVisibility('su-pass')"> Show Password
-                    </label>
-                    <div id="pass-err" class="error-msg">Password must be at least 8 chars long & include uppercase, lowercase, number and special char (@$!%*?&).</div>
+                    <input type="password" id="admin-pass-input" placeholder="Enter Password" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Complete Sign Up</button>
+                <button type="submit" class="btn btn-primary">Login to Admin Dashboard</button>
             </form>
-
-            <!-- Login Form -->
-            <form id="login-form" class="auth-form" onsubmit="handleLogin(event)">
-                <h3 style="margin-bottom: 10px; font-size: 18px;">Account Login</h3>
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="lg-email" placeholder="name@example.com" required>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <input type="password" id="lg-pass" placeholder="Enter password" required>
-                    <label class="show-pass">
-                        <input type="checkbox" onclick="togglePasswordVisibility('lg-pass')"> Show Password
-                    </label>
-                    <div id="login-err" class="error-msg">Invalid email or password.</div>
-                </div>
-                <button type="submit" class="btn btn-primary">Login</button>
-            </form>
-
-            <p style="margin: 15px 0; text-align: center;">or</p>
-            <button class="btn btn-guest" onclick="continueAsGuest()">Continue as Guest</button>
         </div>
     </div>
 
-    <!-- 2. HOME PAGE -->
-    <div id="home-page" class="page">
-        <!-- STATIC FREE SHIPPING BANNER BELOW LIVE STRIP -->
+    <!-- 1. HOME PAGE (DIRECT ACCESS TO ALL CUSTOMERS) -->
+    <div id="home-page" class="page active-page">
         <div class="shipping-banner">
             🚚 Free Shipping on orders above Rs. 3,000!
         </div>
@@ -282,30 +275,17 @@
         <p id="no-results" style="display: none; text-align: center; color: #777; margin-top: 20px;">No matching categories found.</p>
     </div>
 
-    <!-- 3. PRODUCTS LISTING PAGE -->
+    <!-- 2. PRODUCTS LISTING PAGE -->
     <div id="products-page" class="page">
         <button class="back-btn" onclick="showPage('home-page')">← Back to Categories</button>
         <h2 id="category-title" style="color: #0d47a1; margin-bottom: 15px; font-size: 22px;"></h2>
         <div class="product-grid" id="product-container"></div>
     </div>
 
-    <!-- 4. PROFILE PAGE -->
-    <div id="profile-page" class="page">
-        <div class="form-box" style="max-width: 500px; margin: 0 auto;">
-            <h3 style="color: #0d47a1; margin-bottom: 15px; border-bottom: 2px solid #e3f2fd; padding-bottom: 10px;">My Account Profile</h3>
-            <p style="margin-bottom: 10px;"><strong>Account Name:</strong> <span id="prof-name">Guest User</span></p>
-            <p style="margin-bottom: 10px;"><strong>Logged Email:</strong> <span id="prof-email">Not Logged In</span></p>
-            <p style="margin-bottom: 15px;"><strong>Account Status:</strong> <span id="prof-status" style="color: green; font-weight: bold;">Active</span></p>
-            <button class="btn btn-secondary" style="width: 100%;" onclick="showPage('welcome-page')">Switch Account / Login</button>
-            <button class="btn btn-danger" onclick="logoutUser()">Logout Account</button>
-        </div>
-    </div>
-
-    <!-- 5. CHECKOUT PAGE (SPLIT SCREEN LAYOUT) -->
+    <!-- 3. CHECKOUT PAGE -->
     <div id="checkout-page" class="page">
         <h2 style="text-align: center; color: #0d47a1; margin-bottom: 20px; font-size: 22px;">Checkout Details</h2>
         <div class="checkout-grid">
-            <!-- Left Side: Shipping Form & Payment Method -->
             <div class="checkout-left">
                 <h3 style="font-size: 16px; color: #0d47a1; margin-bottom: 15px;">Contact & Shipping Information</h3>
                 <form onsubmit="handlePlaceOrder(event)">
@@ -314,10 +294,8 @@
                     <div class="form-group"><label>WhatsApp Number *</label><input type="text" id="co-phone" placeholder="e.g. 0300 1234567" required></div>
                     <div class="form-group"><label>Full Address *</label><input type="text" id="co-address" placeholder="House #, Street, City" required></div>
 
-                    <!-- SELECT PAYMENT METHOD SECTION (ALL VISIBLE & HIGHLIGHTED ON SELECT) -->
                     <div class="payment-options-title">Select Payment Method:</div>
                     
-                    <!-- 1. Cash on Delivery -->
                     <div class="payment-option-card selected" id="card-cod" onclick="selectPaymentMethod('cod')">
                         <div class="payment-header">
                             <input type="radio" name="payment_method" value="Cash on Delivery" id="pay-cod" checked>
@@ -326,7 +304,6 @@
                         <div class="payment-details-info">Pay in cash to the rider when your parcel is delivered at your doorstep.</div>
                     </div>
 
-                    <!-- 2. Easypaisa -->
                     <div class="payment-option-card" id="card-easypaisa" onclick="selectPaymentMethod('easypaisa')">
                         <div class="payment-header">
                             <input type="radio" name="payment_method" value="Easypaisa" id="pay-easypaisa">
@@ -338,7 +315,6 @@
                         </div>
                     </div>
 
-                    <!-- 3. UPaisa -->
                     <div class="payment-option-card" id="card-upaisa" onclick="selectPaymentMethod('upaisa')">
                         <div class="payment-header">
                             <input type="radio" name="payment_method" value="UPaisa" id="pay-upaisa">
@@ -350,7 +326,6 @@
                         </div>
                     </div>
 
-                    <!-- 4. Allied Bank -->
                     <div class="payment-option-card" id="card-allied" onclick="selectPaymentMethod('allied')">
                         <div class="payment-header">
                             <input type="radio" name="payment_method" value="Allied Bank" id="pay-allied">
@@ -367,12 +342,9 @@
                 </form>
             </div>
 
-            <!-- Right Side: Order Summary -->
             <div class="checkout-right">
                 <h3 style="font-size: 16px; color: #0d47a1; margin-bottom: 15px;">Order Summary</h3>
-                <div id="cart-items-summary">
-                    <!-- Dynamic Cart Items Rendered Here -->
-                </div>
+                <div id="cart-items-summary"></div>
                 <div class="cart-summary-item" style="margin-top: 10px;">
                     <span>Subtotal:</span>
                     <strong id="summary-subtotal">Rs. 0</strong>
@@ -389,20 +361,20 @@
         </div>
     </div>
 
-    <!-- 6. TRACKING PAGE -->
-    <div id="tracking-page" class="page">
-        <h2 style="text-align: center; color: #0d47a1; margin-bottom: 20px; font-size: 20px;">ORDER TRACKING</h2>
-        <div class="form-box" style="text-align: center; max-width: 500px; margin: 0 auto;">
-            <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                <h4>Tracking Number:</h4>
-                <h2 style="color: #0d47a1; margin-top: 5px; font-size: 20px;">ZT0123456789</h2>
-            </div>
-            <div style="background: #fff3e0; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
-                <h4>Shipping Status:</h4>
-                <h2 style="color: #e65100; margin-top: 5px; font-size: 20px;">IN DELIVER MODE</h2>
-            </div>
-            <button class="btn btn-primary" onclick="showPage('home-page')">Continue Shopping</button>
+    <!-- 4. ADMIN DASHBOARD PAGE (ROLE-BASED ACCESS CONTROL) -->
+    <div id="admin-dashboard-page" class="page">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2 style="color: #0d47a1;">Admin Management Dashboard</h2>
+            <button class="btn btn-danger" style="width: auto;" onclick="logoutAdmin()">Logout Admin</button>
         </div>
+
+        <div class="form-box">
+            <p><strong>Logged Admin:</strong> <span id="admin-display-name" style="color:#0d47a1; font-weight:bold;">-</span></p>
+            <p><strong>Role & Permissions:</strong> <span id="admin-display-role" style="color:#2e7d32; font-weight:bold;">-</span></p>
+        </div>
+
+        <h3 style="color: #0d47a1; margin-bottom: 15px;">All Customer Orders</h3>
+        <div id="admin-orders-list"></div>
     </div>
 
     <!-- OTHER PAGES -->
@@ -431,7 +403,6 @@
         </div>
     </div>
 
-    <!-- FOOTER WITH VISUAL PAYMENT LOGOS (NO JAZZCASH & NO CARDS) -->
     <footer>
         <div class="payment-section">
             <div class="payment-title">We Accept</div>
@@ -447,11 +418,75 @@
 
     <script>
         let cartItems = [];
-        let isAuthenticated = false;
+        let pressTimer = null;
+        let currentAdminSession = JSON.parse(localStorage.getItem('zivora_active_admin')) || null;
 
-        let registeredUsers = JSON.parse(localStorage.getItem('zivora_users')) || [];
+        /* ADMIN ACCOUNTS CONFIGURATION */
+        const adminAccounts = [
+            {
+                name: "Admin.01",
+                email: "muhammadalishahid.20077@gmail.com",
+                pass: "Pzep6567$",
+                role: "Super Admin (Full Access to All Categories)",
+                allowedCategory: "all"
+            },
+            {
+                name: "Admin.2",
+                email: "sumairaanwark@gmail.com",
+                pass: "Pzep6567$",
+                role: "Jewelry Manager (Edit Access: Jewelry Only)",
+                allowedCategory: "jewelry"
+            },
+            {
+                name: "Admin.3",
+                email: "syedahajra965@gmail.com",
+                pass: "Pzep6567$",
+                role: "Kitchen Appliances Manager (Edit Access: Kitchen Only)",
+                allowedCategory: "kitchen"
+            }
+        ];
 
-        /* STORE DATA WITH PRODUCT SERIAL CODES (SKUs) */
+        /* DEMO & STORED ORDERS IN LOCALSTORAGE */
+        let zivoraOrders = JSON.parse(localStorage.getItem('zivora_orders')) || [
+            {
+                id: "ZT-1001",
+                customer: "Usman Ali",
+                email: "usman@example.com",
+                phone: "03001234567",
+                address: "Gulberg, Lahore",
+                payment: "Cash on Delivery",
+                categoryKey: "kitchen",
+                items: "[Code: K0001] Stainless Steel Knife Set (x1)",
+                total: 1799,
+                status: "Pending"
+            },
+            {
+                id: "ZT-1002",
+                customer: "Ayesha Bibi",
+                email: "ayesha@example.com",
+                phone: "03111234567",
+                address: "DHA, Karachi",
+                payment: "Easypaisa",
+                categoryKey: "jewelry",
+                items: "[Code: J0001] Gold Plated Necklace (x1)",
+                total: 1599,
+                status: "Pending"
+            },
+            {
+                id: "ZT-1003",
+                customer: "Hamza Malik",
+                email: "hamza@example.com",
+                phone: "03211234567",
+                address: "F-7, Islamabad",
+                payment: "Allied Bank",
+                categoryKey: "watches",
+                items: "[Code: W0001] Men's Luxury Leather Strap Watch (x1)",
+                total: 2499,
+                status: "Pending"
+            }
+        ];
+
+        /* STORE PRODUCTS DATA */
         const storeData = {
             kitchen: {
                 title: "Kitchen Accessories",
@@ -499,14 +534,107 @@
         };
 
         window.onload = function() {
-            let activeSession = JSON.parse(localStorage.getItem('zivora_active_session'));
-            if (activeSession) {
-                updateUserSession(activeSession.name, activeSession.email, false);
-                showPage('home-page');
-            } else {
-                showPage('welcome-page');
+            if (currentAdminSession) {
+                document.getElementById('admin-dashboard-link').style.display = 'inline-block';
             }
+            showPage('home-page');
         };
+
+        /* 10 SECOND LONG-PRESS DETECTOR ON LOGO */
+        function startPressTimer() {
+            pressTimer = setTimeout(() => {
+                document.getElementById('admin-login-modal').style.display = 'flex';
+            }, 10000); // Exactly 10 Seconds
+        }
+
+        function cancelPressTimer() {
+            if (pressTimer) {
+                clearTimeout(pressTimer);
+            }
+        }
+
+        function closeAdminModal() {
+            document.getElementById('admin-login-modal').style.display = 'none';
+        }
+
+        function handleAdminLogin(e) {
+            e.preventDefault();
+            let name = document.getElementById('admin-name-input').value.trim();
+            let email = document.getElementById('admin-email-input').value.trim();
+            let pass = document.getElementById('admin-pass-input').value.trim();
+
+            let matchedAdmin = adminAccounts.find(a => a.name === name && a.email === email && a.pass === pass);
+
+            if (matchedAdmin) {
+                currentAdminSession = matchedAdmin;
+                localStorage.setItem('zivora_active_admin', JSON.stringify(matchedAdmin));
+                document.getElementById('admin-dashboard-link').style.display = 'inline-block';
+                closeAdminModal();
+                alert(`Welcome ${matchedAdmin.name}! Access Granted.`);
+                showPage('admin-dashboard-page');
+            } else {
+                alert('⚠️ Invalid Admin Credentials! Access Denied.');
+            }
+        }
+
+        function logoutAdmin() {
+            localStorage.removeItem('zivora_active_admin');
+            currentAdminSession = null;
+            document.getElementById('admin-dashboard-link').style.display = 'none';
+            alert('Admin logged out successfully.');
+            showPage('home-page');
+        }
+
+        function renderAdminDashboard() {
+            if (!currentAdminSession) return;
+
+            document.getElementById('admin-display-name').innerText = `${currentAdminSession.name} (${currentAdminSession.email})`;
+            document.getElementById('admin-display-role').innerText = currentAdminSession.role;
+
+            let container = document.getElementById('admin-orders-list');
+            container.innerHTML = '';
+
+            if (zivoraOrders.length === 0) {
+                container.innerHTML = '<p>No orders received yet.</p>';
+                return;
+            }
+
+            zivoraOrders.forEach((order, index) => {
+                let isAllowedToEdit = currentAdminSession.allowedCategory === "all" || currentAdminSession.allowedCategory === order.categoryKey;
+
+                let card = document.createElement('div');
+                card.className = 'order-card-admin';
+                card.innerHTML = `
+                    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                        <strong>Order ID: ${order.id}</strong>
+                        <span class="status-badge status-${order.status.toLowerCase()}">${order.status}</span>
+                    </div>
+                    <p style="font-size:13px; margin-bottom:4px;">👤 <strong>Customer:</strong> ${order.customer} | 📞 ${order.phone}</p>
+                    <p style="font-size:13px; margin-bottom:4px;">📍 <strong>Address:</strong> ${order.address}</p>
+                    <p style="font-size:13px; margin-bottom:4px;">📦 <strong>Items:</strong> ${order.items}</p>
+                    <p style="font-size:13px; margin-bottom:10px;">💳 <strong>Payment:</strong> ${order.payment} | 💰 <strong>Total:</strong> Rs. ${order.total.toLocaleString()}</p>
+                    
+                    <div style="border-top:1px dashed #ccc; padding-top:10px; display:flex; gap:10px; align-items:center;">
+                        <span style="font-size:13px; font-weight:bold;">Change Status:</span>
+                        ${isAllowedToEdit ? `
+                            <button class="btn btn-primary" style="padding:4px 10px; width:auto; font-size:12px;" onclick="updateOrderStatus(${index}, 'Pending')">Pending</button>
+                            <button class="btn btn-primary" style="padding:4px 10px; width:auto; font-size:12px; background:#f57c00;" onclick="updateOrderStatus(${index}, 'Shipped')">Shift Mode</button>
+                            <button class="btn btn-primary" style="padding:4px 10px; width:auto; font-size:12px; background:#388e3c;" onclick="updateOrderStatus(${index}, 'Delivered')">Deliver Mode</button>
+                        ` : `
+                            <span style="color:#777; font-size:12px; font-style:italic;">🔒 View-Only Mode (Read Only)</span>
+                        `}
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function updateOrderStatus(orderIndex, newStatus) {
+            zivoraOrders[orderIndex].status = newStatus;
+            localStorage.setItem('zivora_orders', JSON.stringify(zivoraOrders));
+            renderAdminDashboard();
+            alert(`Order status updated to: ${newStatus}`);
+        }
 
         function showPage(pageId) {
             let pages = document.querySelectorAll('.page');
@@ -515,17 +643,10 @@
             
             if(pageId === 'checkout-page') {
                 renderCheckoutSummary();
+            } else if (pageId === 'admin-dashboard-page') {
+                renderAdminDashboard();
             }
             window.scrollTo(0,0);
-        }
-
-        function navigateToHome() {
-            if (isAuthenticated) {
-                showPage('home-page');
-            } else {
-                alert('Please Login, Sign Up, or Continue as Guest to access the Home Store.');
-                showPage('welcome-page');
-            }
         }
 
         function openCategory(categoryKey) {
@@ -546,7 +667,7 @@
                         <label>Qty:</label>
                         <input type="number" id="qty-${prod.id}" value="1" min="1" max="5" onchange="validateQty(this)">
                     </div>
-                    <button class="btn btn-primary" style="padding: 8px 12px; font-size: 13px;" onclick="addToCart('${prod.code}', '${prod.name}', ${prod.price}, 'qty-${prod.id}')">Add to Cart</button>
+                    <button class="btn btn-primary" style="padding: 8px 12px; font-size: 13px;" onclick="addToCart('${categoryKey}', '${prod.code}', '${prod.name}', ${prod.price}, 'qty-${prod.id}')">Add to Cart</button>
                 `;
                 container.appendChild(card);
             });
@@ -563,7 +684,7 @@
             }
         }
 
-        function addToCart(code, name, price, qtyInputId) {
+        function addToCart(catKey, code, name, price, qtyInputId) {
             let qtyInput = document.getElementById(qtyInputId);
             let qty = parseInt(qtyInput.value) || 1;
 
@@ -582,7 +703,7 @@
                     alert(qty + ' x ' + name + ' (' + code + ') added to cart!');
                 }
             } else {
-                cartItems.push({ code, name, price, qty });
+                cartItems.push({ catKey, code, name, price, qty });
                 alert(qty + ' x ' + name + ' (' + code + ') added to cart!');
             }
 
@@ -620,7 +741,6 @@
             document.getElementById('summary-total').innerText = 'Rs. ' + total.toLocaleString();
         }
 
-        /* FUNCTION TO HIGHLIGHT SELECTED PAYMENT METHOD */
         function selectPaymentMethod(type) {
             let cards = document.querySelectorAll('.payment-option-card');
             cards.forEach(card => card.classList.remove('selected'));
@@ -651,16 +771,31 @@
             let email = document.getElementById('co-email').value;
             let phone = document.getElementById('co-phone').value;
             let address = document.getElementById('co-address').value;
-
-            // Get Selected Payment Method
             let paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
 
             let subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.qty), 0);
             let shipping = subtotal >= 3000 ? 0 : 300;
             let total = subtotal + shipping;
 
-            // Format order details including ITEM CODE (SKU)
-            let orderDetailsText = cartItems.map((item, i) => `${i+1}. [Code: ${item.code}] ${item.name} (Qty: ${item.qty}) - Rs.${item.price * item.qty}`).join('\n');
+            let orderDetailsText = cartItems.map((item, i) => `${i+1}. [Code: ${item.code}] ${item.name} (Qty: ${item.qty})`).join('\n');
+            let mainCatKey = cartItems[0].catKey;
+
+            // Save order locally for Admin Dashboard
+            let newOrderObj = {
+                id: "ZT-" + Math.floor(1000 + Math.random() * 9000),
+                customer: name,
+                email: email,
+                phone: phone,
+                address: address,
+                payment: paymentMethod,
+                categoryKey: mainCatKey,
+                items: orderDetailsText.replace(/\n/g, ', '),
+                total: total,
+                status: "Pending"
+            };
+
+            zivoraOrders.unshift(newOrderObj);
+            localStorage.setItem('zivora_orders', JSON.stringify(zivoraOrders));
 
             let alertMessage = `🛍️ *NEW ORDER ON ZIVORA STORE*\n\n` +
                 `👤 *Customer Name:* ${name}\n` +
@@ -668,117 +803,22 @@
                 `📞 *WhatsApp:* ${phone}\n` +
                 `📍 *Address:* ${address}\n` +
                 `💳 *Payment Method:* ${paymentMethod}\n\n` +
-                `🛒 *ORDER ITEMS & CODES:*\n${orderDetailsText}\n\n` +
+                `🛒 *ORDER ITEMS:*\n${orderDetailsText}\n\n` +
                 `🚚 *Shipping:* ${shipping === 0 ? 'FREE' : 'Rs. 300'}\n` +
                 `💰 *TOTAL AMOUNT:* Rs. ${total}`;
 
-            // 1. OPEN WHATSAPP WITH DIRECT ALERT TO YOUR NUMBER (03216307680)
             let waUrl = `https://wa.me/923216307680?text=${encodeURIComponent(alertMessage)}`;
             window.open(waUrl, '_blank');
 
-            // 2. OPEN EMAIL CLIENT WITH DIRECT ALERT TO YOUR EMAIL
             let mailSubject = encodeURIComponent(`New Order Received from ${name} - Zivora Store`);
             let mailBody = encodeURIComponent(alertMessage);
             let mailUrl = `mailto:muhammadalishahid.20077@gmail.com?subject=${mailSubject}&body=${mailBody}`;
             window.open(mailUrl, '_blank');
 
-            alert('Order notification initiated via WhatsApp & Email! Redirecting to tracking page.');
+            alert('Order placed successfully! Order notification sent via WhatsApp & Email.');
             cartItems = [];
             document.getElementById('cart-count').innerText = '0';
-            showPage('tracking-page');
-        }
-
-        function toggleAuth(type) {
-            document.getElementById('signup-form').classList.remove('active-form');
-            document.getElementById('login-form').classList.remove('active-form');
-            if(type === 'signup') {
-                document.getElementById('signup-form').classList.add('active-form');
-            } else {
-                document.getElementById('login-form').classList.add('active-form');
-            }
-        }
-
-        function togglePasswordVisibility(fieldId) {
-            let field = document.getElementById(fieldId);
-            field.type = field.type === "password" ? "text" : "password";
-        }
-
-        function handleSignUp(e) {
-            e.preventDefault();
-            let name = document.getElementById('su-name').value.trim();
-            let email = document.getElementById('su-email').value.trim();
-            let pass = document.getElementById('su-pass').value;
-            let passErr = document.getElementById('pass-err');
-            let emailExistErr = document.getElementById('email-exist-err');
-
-            let existingUser = registeredUsers.find(u => u.email === email);
-            if (existingUser) {
-                emailExistErr.style.display = 'block';
-                return;
-            } else {
-                emailExistErr.style.display = 'none';
-            }
-
-            let strongPassRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-            if (!strongPassRegex.test(pass)) {
-                passErr.style.display = 'block';
-                return;
-            } else {
-                passErr.style.display = 'none';
-            }
-
-            registeredUsers.push({ name, email, pass });
-            localStorage.setItem('zivora_users', JSON.stringify(registeredUsers));
-
-            alert('Account created successfully!');
-            updateUserSession(name, email, true);
             showPage('home-page');
-        }
-
-        function handleLogin(e) {
-            e.preventDefault();
-            let email = document.getElementById('lg-email').value.trim();
-            let pass = document.getElementById('lg-pass').value;
-            let loginErr = document.getElementById('login-err');
-
-            let foundUser = registeredUsers.find(u => u.email === email && u.pass === pass);
-            if (foundUser) {
-                loginErr.style.display = 'none';
-                updateUserSession(foundUser.name, foundUser.email, true);
-                showPage('home-page');
-            } else {
-                loginErr.style.display = 'block';
-            }
-        }
-
-        function continueAsGuest() {
-            updateUserSession('Guest', 'Guest Session', false);
-            showPage('home-page');
-        }
-
-        function logoutUser() {
-            cartItems = [];
-            document.getElementById('cart-count').innerText = '0';
-            localStorage.removeItem('zivora_active_session');
-            isAuthenticated = false;
-            document.getElementById('nav-user-btn').style.display = 'none';
-            document.getElementById('nav-cart-btn').style.display = 'none';
-            alert('Logged out successfully.');
-            showPage('welcome-page');
-        }
-
-        function updateUserSession(name, email, saveSession) {
-            isAuthenticated = true;
-            if (saveSession) {
-                localStorage.setItem('zivora_active_session', JSON.stringify({ name, email }));
-            }
-            document.getElementById('nav-user-name').innerText = name;
-            document.getElementById('prof-name').innerText = name;
-            document.getElementById('prof-email').innerText = email;
-            document.getElementById('co-name').value = name !== 'Guest' ? name : '';
-            document.getElementById('co-email').value = email !== 'Guest Session' ? email : '';
-            document.getElementById('nav-user-btn').style.display = 'inline-block';
-            document.getElementById('nav-cart-btn').style.display = 'inline-block';
         }
 
         function filterCategories() {
