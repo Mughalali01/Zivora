@@ -100,7 +100,8 @@
         .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 15px; }
         .product-card { background: white; border-radius: 10px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; border: 1px solid #e0e0e0; }
         .product-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 6px; margin-bottom: 10px; }
-        .product-card h4 { font-size: 15px; margin-bottom: 5px; color: #333; }
+        .product-card h4 { font-size: 15px; margin-bottom: 3px; color: #333; }
+        .product-code { font-size: 12px; font-weight: bold; color: #0d47a1; background: #e3f2fd; display: inline-block; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
         .product-card .price { color: #0d47a1; font-weight: bold; font-size: 16px; margin-bottom: 10px; }
         
         .qty-box { display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 10px; }
@@ -120,6 +121,31 @@
         .checkout-left { flex: 1; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
         .checkout-right { flex: 1; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border: 1px solid #e3f2fd; }
         
+        /* PAYMENT METHOD CARDS (HIGHLIGHT ON SELECT) */
+        .payment-options-title { font-size: 15px; font-weight: bold; color: #0d47a1; margin: 20px 0 10px; border-top: 1px solid #eee; padding-top: 15px; }
+        .payment-option-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 12px 15px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            background-color: #fafafa;
+        }
+        .payment-option-card:hover {
+            border-color: #90caf9;
+        }
+        /* Highlight style when selected */
+        .payment-option-card.selected {
+            border-color: #0d47a1 !important;
+            background-color: #e3f2fd !important;
+            box-shadow: 0 0 8px rgba(13, 71, 161, 0.2);
+        }
+        .payment-header { display: flex; align-items: center; gap: 10px; font-weight: bold; font-size: 14px; color: #333; }
+        .payment-header input[type="radio"] { width: 18px; height: 18px; cursor: pointer; accent-color: #0d47a1; }
+        .payment-details-info { margin-top: 8px; padding-left: 28px; font-size: 13px; color: #444; line-height: 1.5; }
+        .payment-details-info code { background: #fff; padding: 2px 6px; border-radius: 4px; border: 1px solid #ccc; font-weight: bold; color: #0d47a1; }
+
         .cart-summary-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
         .cart-summary-item span { font-size: 14px; }
         .summary-total { margin-top: 15px; padding-top: 15px; border-top: 2px solid #0d47a1; font-weight: bold; font-size: 16px; display: flex; justify-content: space-between; }
@@ -279,7 +305,7 @@
     <div id="checkout-page" class="page">
         <h2 style="text-align: center; color: #0d47a1; margin-bottom: 20px; font-size: 22px;">Checkout Details</h2>
         <div class="checkout-grid">
-            <!-- Left Side: Shipping Form -->
+            <!-- Left Side: Shipping Form & Payment Method -->
             <div class="checkout-left">
                 <h3 style="font-size: 16px; color: #0d47a1; margin-bottom: 15px;">Contact & Shipping Information</h3>
                 <form onsubmit="handlePlaceOrder(event)">
@@ -287,7 +313,57 @@
                     <div class="form-group"><label>Full Name *</label><input type="text" id="co-name" placeholder="Enter full name" required></div>
                     <div class="form-group"><label>WhatsApp Number *</label><input type="text" id="co-phone" placeholder="e.g. 0300 1234567" required></div>
                     <div class="form-group"><label>Full Address *</label><input type="text" id="co-address" placeholder="House #, Street, City" required></div>
-                    <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Place Order & Send Alert</button>
+
+                    <!-- SELECT PAYMENT METHOD SECTION (ALL VISIBLE & HIGHLIGHTED ON SELECT) -->
+                    <div class="payment-options-title">Select Payment Method:</div>
+                    
+                    <!-- 1. Cash on Delivery -->
+                    <div class="payment-option-card selected" id="card-cod" onclick="selectPaymentMethod('cod')">
+                        <div class="payment-header">
+                            <input type="radio" name="payment_method" value="Cash on Delivery" id="pay-cod" checked>
+                            <label for="pay-cod" style="cursor:pointer;">💵 Cash on Delivery (COD)</label>
+                        </div>
+                        <div class="payment-details-info">Pay in cash to the rider when your parcel is delivered at your doorstep.</div>
+                    </div>
+
+                    <!-- 2. Easypaisa -->
+                    <div class="payment-option-card" id="card-easypaisa" onclick="selectPaymentMethod('easypaisa')">
+                        <div class="payment-header">
+                            <input type="radio" name="payment_method" value="Easypaisa" id="pay-easypaisa">
+                            <label for="pay-easypaisa" style="cursor:pointer; color:#00a859;">🟢 Easypaisa</label>
+                        </div>
+                        <div class="payment-details-info">
+                            Account Title: <strong>Muhammad Shahid</strong><br>
+                            Account No: <code>03216307680</code>
+                        </div>
+                    </div>
+
+                    <!-- 3. UPaisa -->
+                    <div class="payment-option-card" id="card-upaisa" onclick="selectPaymentMethod('upaisa')">
+                        <div class="payment-header">
+                            <input type="radio" name="payment_method" value="UPaisa" id="pay-upaisa">
+                            <label for="pay-upaisa" style="cursor:pointer; color:#f37023;">🟠 UPaisa</label>
+                        </div>
+                        <div class="payment-details-info">
+                            Account Title: <strong>Muhammad Shahid</strong><br>
+                            Account No: <code>03216307680</code>
+                        </div>
+                    </div>
+
+                    <!-- 4. Allied Bank -->
+                    <div class="payment-option-card" id="card-allied" onclick="selectPaymentMethod('allied')">
+                        <div class="payment-header">
+                            <input type="radio" name="payment_method" value="Allied Bank" id="pay-allied">
+                            <label for="pay-allied" style="cursor:pointer; color:#0d47a1;">🏦 Allied Bank</label>
+                        </div>
+                        <div class="payment-details-info">
+                            Account Title: <strong>Muhammad Shahid</strong><br>
+                            Account No: <code>09650010110280150013</code><br>
+                            IBAN: <code>PK32ABPA0010110280150013</code>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" style="margin-top: 15px;">Place Order & Send Alert</button>
                 </form>
             </div>
 
@@ -355,21 +431,15 @@
         </div>
     </div>
 
-    <!-- FOOTER WITH VISUAL PAYMENT LOGOS -->
+    <!-- FOOTER WITH VISUAL PAYMENT LOGOS (NO JAZZCASH & NO CARDS) -->
     <footer>
         <div class="payment-section">
             <div class="payment-title">We Accept</div>
             <div class="payment-badges">
                 <div class="logo-card" title="Cash on Delivery"><span style="font-weight: bold; color: #333; font-size: 13px;">💵 COD</span></div>
-                <div class="logo-card" title="JazzCash"><span style="font-weight: 900; color: #e2136e; font-size: 15px;">Jazz<span style="color:#fdb913">Cash</span></span></div>
                 <div class="logo-card" title="Easypaisa"><span style="font-weight: 900; color: #00a859; font-size: 15px;">easy<span style="color:#000">paisa</span></span></div>
                 <div class="logo-card" title="Upaisa"><span style="font-weight: 900; color: #f37023; font-size: 15px;">U<span style="color:#009640">paisa</span></span></div>
-                <div class="logo-card" title="Visa Card">
-                    <svg viewBox="0 0 1000 324" width="55" height="20"><path fill="#1A1F71" d="M399.7 317.8l49.7-308.3h79.4l-49.7 308.3h-79.4zm296.2-300.7c-15.7-6-40.3-12.4-71-12.4-78.2 0-133.3 41.6-133.7 101.2-.5 44 39.4 68.5 69.4 83.2 30.8 15 41.2 24.7 41.1 38.1-.2 20.6-24.8 30-47.8 30-31.9 0-48.9-4.8-75-16.3l-10.3-4.9-11.2 69.4c18.7 8.7 53.2 16.2 89 16.5 84.1 0 138.7-41.5 139.3-105.8.3-35.3-21.1-62.1-67.4-84.3-28.1-14.3-45.3-23.9-45.1-38.4.1-12.9 14.5-26.2 46-26.2 26.2-.4 45.2 5.6 59.9 11.9l7.2 3.4 10.2-65.0zM880.8 9.5h-61.3c-19 0-33.3 5.5-41.6 25.4L656.7 317.8h83.6l16.7-46.2h102.2l9.7 46.2h73.8L880.8 9.5zm-63.5 197.8l42.2-115.8 24.3 115.8h-66.5zM277.5 9.5L199.9 220l-8.3-42.3c-14.6-49.6-60.2-103.4-111-130.3l71.7 270.3h84.1l125.2-308.2h-84.1z"/></svg>
-                </div>
-                <div class="logo-card" title="MasterCard">
-                    <svg viewBox="0 0 100 60" width="45" height="26"><circle cx="38" cy="30" r="22" fill="#EB001B" /><circle cx="62" cy="30" r="22" fill="#F79E1B" fill-opacity="0.9" /></svg>
-                </div>
+                <div class="logo-card" title="Allied Bank"><span style="font-weight: 900; color: #0d47a1; font-size: 14px;">Allied<span style="color:#333"> Bank</span></span></div>
             </div>
         </div>
         <p style="font-size: 12px; color: #90caf9; margin-top: 15px;">&copy; 2026 Zivora Store. All rights reserved.</p>
@@ -381,48 +451,49 @@
 
         let registeredUsers = JSON.parse(localStorage.getItem('zivora_users')) || [];
 
+        /* STORE DATA WITH PRODUCT SERIAL CODES (SKUs) */
         const storeData = {
             kitchen: {
                 title: "Kitchen Accessories",
                 items: [
-                    { id: "k1", name: "Stainless Steel Knife Set", price: 1499, img: "https://images.unsplash.com/photo-1593618998160-e34014e67546?w=500" },
-                    { id: "k2", name: "Non-Stick Cooking Pan", price: 2199, img: "https://images.unsplash.com/photo-1583778176476-4a8b02a64c01?w=500" },
-                    { id: "k3", name: "Kitchen Spice Rack", price: 999, img: "https://images.unsplash.com/photo-1588854337236-6889d631faa8?w=500" },
-                    { id: "k4", name: "Electric Food Blender", price: 3499, img: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=500" }
+                    { id: "k1", code: "K0001", name: "Stainless Steel Knife Set", price: 1499, img: "https://images.unsplash.com/photo-1593618998160-e34014e67546?w=500" },
+                    { id: "k2", code: "K0002", name: "Non-Stick Cooking Pan", price: 2199, img: "https://images.unsplash.com/photo-1583778176476-4a8b02a64c01?w=500" },
+                    { id: "k3", code: "K0003", name: "Kitchen Spice Rack", price: 999, img: "https://images.unsplash.com/photo-1588854337236-6889d631faa8?w=500" },
+                    { id: "k4", code: "K0004", name: "Electric Food Blender", price: 3499, img: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=500" }
                 ]
             },
             mobile: {
                 title: "Mobile Accessories",
                 items: [
-                    { id: "m1", name: "Fast Type-C Data Cable", price: 499, img: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500" },
-                    { id: "m2", name: "20W Fast USB Adapter", price: 899, img: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500" },
-                    { id: "m3", name: "Silicone Mobile Back Cover", price: 399, img: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=500" },
-                    { id: "m4", name: "Wireless Bluetooth Handsfree", price: 1899, img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500" }
+                    { id: "m1", code: "M0001", name: "Fast Type-C Data Cable", price: 499, img: "https://images.unsplash.com/photo-1583863788434-e58a36330cf0?w=500" },
+                    { id: "m2", code: "M0002", name: "20W Fast USB Adapter", price: 899, img: "https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500" },
+                    { id: "m3", code: "M0003", name: "Silicone Mobile Back Cover", price: 399, img: "https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?w=500" },
+                    { id: "m4", code: "M0004", name: "Wireless Bluetooth Handsfree", price: 1899, img: "https://images.unsplash.com/photo-1590658268037-6bf12165a8df?w=500" }
                 ]
             },
             jewelry: {
                 title: "Jewelry & Necklaces",
                 items: [
-                    { id: "j1", name: "Gold Plated Necklace", price: 1299, img: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500" },
-                    { id: "j2", name: "Silver Crystal Ring", price: 799, img: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=500" },
-                    { id: "j3", name: "Bridal Earring Set", price: 1599, img: "https://images.unsplash.com/photo-1635767798638-3e25273a8236?w=500" }
+                    { id: "j1", code: "J0001", name: "Gold Plated Necklace", price: 1299, img: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500" },
+                    { id: "j2", code: "J0002", name: "Silver Crystal Ring", price: 799, img: "https://images.unsplash.com/photo-1603561591411-07134e71a2a9?w=500" },
+                    { id: "j3", code: "J0003", name: "Bridal Earring Set", price: 1599, img: "https://images.unsplash.com/photo-1635767798638-3e25273a8236?w=500" }
                 ]
             },
             clothes: {
                 title: "Clothes & Apparel",
                 items: [
-                    { id: "c1", name: "Men's Casual Denim Jeans", price: 2299, img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500" },
-                    { id: "c2", name: "Cotton Formal Shirt", price: 1699, img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500" },
-                    { id: "c3", name: "Stylish Winter Cotton Coat", price: 4500, img: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500" },
-                    { id: "c4", name: "Sports Tracksuit", price: 2999, img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500" }
+                    { id: "c1", code: "C0001", name: "Men's Casual Denim Jeans", price: 2299, img: "https://images.unsplash.com/photo-1542272604-787c3835535d?w=500" },
+                    { id: "c2", code: "C0002", name: "Cotton Formal Shirt", price: 1699, img: "https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=500" },
+                    { id: "c3", code: "C0003", name: "Stylish Winter Cotton Coat", price: 4500, img: "https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=500" },
+                    { id: "c4", code: "C0004", name: "Sports Tracksuit", price: 2999, img: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?w=500" }
                 ]
             },
             watches: {
                 title: "Watches Collection",
                 items: [
-                    { id: "w1", name: "Men's Luxury Leather Strap Watch", price: 2499, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" },
-                    { id: "w2", name: "Ladies Metallic Chain Watch", price: 1999, img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500" },
-                    { id: "w3", name: "Kids Digital Cartoon Watch", price: 699, img: "https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=500" }
+                    { id: "w1", code: "W0001", name: "Men's Luxury Leather Strap Watch", price: 2499, img: "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500" },
+                    { id: "w2", code: "W0002", name: "Ladies Metallic Chain Watch", price: 1999, img: "https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=500" },
+                    { id: "w3", code: "W0003", name: "Kids Digital Cartoon Watch", price: 699, img: "https://images.unsplash.com/photo-1508057198894-247b23fe5ade?w=500" }
                 ]
             }
         };
@@ -468,13 +539,14 @@
                 card.className = 'product-card';
                 card.innerHTML = `
                     <img src="${prod.img}" alt="${prod.name}">
+                    <div class="product-code">Code: ${prod.code}</div>
                     <h4>${prod.name}</h4>
                     <div class="price">Rs. ${prod.price.toLocaleString()}</div>
                     <div class="qty-box">
                         <label>Qty:</label>
                         <input type="number" id="qty-${prod.id}" value="1" min="1" max="5" onchange="validateQty(this)">
                     </div>
-                    <button class="btn btn-primary" style="padding: 8px 12px; font-size: 13px;" onclick="addToCart('${prod.name}', ${prod.price}, 'qty-${prod.id}')">Add to Cart</button>
+                    <button class="btn btn-primary" style="padding: 8px 12px; font-size: 13px;" onclick="addToCart('${prod.code}', '${prod.name}', ${prod.price}, 'qty-${prod.id}')">Add to Cart</button>
                 `;
                 container.appendChild(card);
             });
@@ -491,7 +563,7 @@
             }
         }
 
-        function addToCart(name, price, qtyInputId) {
+        function addToCart(code, name, price, qtyInputId) {
             let qtyInput = document.getElementById(qtyInputId);
             let qty = parseInt(qtyInput.value) || 1;
 
@@ -500,18 +572,18 @@
                 return;
             }
 
-            let existingItem = cartItems.find(item => item.name === name);
+            let existingItem = cartItems.find(item => item.code === code);
             if (existingItem) {
                 if (existingItem.qty + qty > 5) {
-                    alert('⚠️ Total quantity for ' + name + ' cannot exceed 5 items!');
+                    alert('⚠️ Total quantity for [' + code + '] ' + name + ' cannot exceed 5 items!');
                     existingItem.qty = 5;
                 } else {
                     existingItem.qty += qty;
-                    alert(qty + ' x ' + name + ' added to cart!');
+                    alert(qty + ' x ' + name + ' (' + code + ') added to cart!');
                 }
             } else {
-                cartItems.push({ name, price, qty });
-                alert(qty + ' x ' + name + ' added to cart!');
+                cartItems.push({ code, name, price, qty });
+                alert(qty + ' x ' + name + ' (' + code + ') added to cart!');
             }
 
             let totalItemsCount = cartItems.reduce((acc, curr) => acc + curr.qty, 0);
@@ -536,7 +608,7 @@
                 subtotal += itemTotal;
                 let div = document.createElement('div');
                 div.className = 'cart-summary-item';
-                div.innerHTML = `<span>${index + 1}. ${item.name} <strong>(x${item.qty})</strong></span><strong>Rs. ${itemTotal.toLocaleString()}</strong>`;
+                div.innerHTML = `<span>${index + 1}. [${item.code}] ${item.name} <strong>(x${item.qty})</strong></span><strong>Rs. ${itemTotal.toLocaleString()}</strong>`;
                 summaryContainer.appendChild(div);
             });
 
@@ -546,6 +618,26 @@
             document.getElementById('summary-subtotal').innerText = 'Rs. ' + subtotal.toLocaleString();
             document.getElementById('summary-shipping').innerText = shipping === 0 ? 'FREE' : 'Rs. ' + shipping;
             document.getElementById('summary-total').innerText = 'Rs. ' + total.toLocaleString();
+        }
+
+        /* FUNCTION TO HIGHLIGHT SELECTED PAYMENT METHOD */
+        function selectPaymentMethod(type) {
+            let cards = document.querySelectorAll('.payment-option-card');
+            cards.forEach(card => card.classList.remove('selected'));
+
+            if (type === 'cod') {
+                document.getElementById('pay-cod').checked = true;
+                document.getElementById('card-cod').classList.add('selected');
+            } else if (type === 'easypaisa') {
+                document.getElementById('pay-easypaisa').checked = true;
+                document.getElementById('card-easypaisa').classList.add('selected');
+            } else if (type === 'upaisa') {
+                document.getElementById('pay-upaisa').checked = true;
+                document.getElementById('card-upaisa').classList.add('selected');
+            } else if (type === 'allied') {
+                document.getElementById('pay-allied').checked = true;
+                document.getElementById('card-allied').classList.add('selected');
+            }
         }
 
         function handlePlaceOrder(e) {
@@ -560,18 +652,23 @@
             let phone = document.getElementById('co-phone').value;
             let address = document.getElementById('co-address').value;
 
+            // Get Selected Payment Method
+            let paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+
             let subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.qty), 0);
             let shipping = subtotal >= 3000 ? 0 : 300;
             let total = subtotal + shipping;
 
-            let orderDetailsText = cartItems.map((item, i) => `${i+1}. ${item.name} (Qty: ${item.qty}) - Rs.${item.price * item.qty}`).join('\n');
+            // Format order details including ITEM CODE (SKU)
+            let orderDetailsText = cartItems.map((item, i) => `${i+1}. [Code: ${item.code}] ${item.name} (Qty: ${item.qty}) - Rs.${item.price * item.qty}`).join('\n');
 
             let alertMessage = `🛍️ *NEW ORDER ON ZIVORA STORE*\n\n` +
                 `👤 *Customer Name:* ${name}\n` +
                 `✉️ *Customer Email:* ${email}\n` +
                 `📞 *WhatsApp:* ${phone}\n` +
-                `📍 *Address:* ${address}\n\n` +
-                `🛒 *ORDER DETAILS:*\n${orderDetailsText}\n\n` +
+                `📍 *Address:* ${address}\n` +
+                `💳 *Payment Method:* ${paymentMethod}\n\n` +
+                `🛒 *ORDER ITEMS & CODES:*\n${orderDetailsText}\n\n` +
                 `🚚 *Shipping:* ${shipping === 0 ? 'FREE' : 'Rs. 300'}\n` +
                 `💰 *TOTAL AMOUNT:* Rs. ${total}`;
 
