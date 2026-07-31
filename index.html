@@ -23,6 +23,8 @@
             flex-wrap: wrap;
             gap: 10px;
         }
+
+        /* FIXED LOGO SELECT ISSUE */
         header h1 { 
             font-size: 24px; 
             font-weight: bold; 
@@ -30,6 +32,9 @@
             letter-spacing: 1px; 
             user-select: none;
             -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            -webkit-touch-callout: none; /* Mobile touch selection disabled */
         }
         header h1:hover { color: #90caf9; }
         
@@ -64,7 +69,6 @@
             margin-bottom: 20px;
         }
 
-        /* Mobile Responsive */
         @media (max-width: 768px) {
             header { flex-direction: column; align-items: center; padding: 10px; text-align: center; }
             nav { justify-content: center; gap: 8px 12px; font-size: 13px; width: 100%; }
@@ -72,11 +76,9 @@
             .checkout-grid { flex-direction: column !important; }
         }
 
-        /* Pages Section */
         .page { display: none; padding: 20px 15px; max-width: 1000px; margin: 0 auto; }
         .active-page { display: block; }
 
-        /* Search & Categories */
         .search-bar { width: 100%; max-width: 600px; margin: 0 auto 25px; display: flex; }
         .search-bar input { width: 100%; padding: 10px 12px; border: 1px solid #ccc; border-radius: 6px 0 0 6px; outline: none; }
         .search-bar button { padding: 10px 20px; background-color: #0d47a1; color: white; border: none; border-radius: 0 6px 6px 0; cursor: pointer; }
@@ -87,7 +89,6 @@
         .cat-card img { width: 100%; height: 140px; object-fit: cover; }
         .cat-card h4 { padding: 12px; color: #0d47a1; font-size: 14px; }
 
-        /* Products Grid & Quantity Box */
         .product-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 15px; }
         .product-card { background: white; border-radius: 10px; padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); text-align: center; border: 1px solid #e0e0e0; }
         .product-card img { width: 100%; height: 150px; object-fit: cover; border-radius: 6px; margin-bottom: 10px; }
@@ -104,13 +105,11 @@
         .btn-primary { background-color: #0d47a1; color: white; width: 100%; }
         .btn-danger { background-color: #d32f2f; color: white; }
 
-        /* Form Box */
         .form-box { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); margin-bottom: 20px; }
         .form-group { margin-bottom: 15px; }
         .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
         .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; }
 
-        /* CHECKOUT SPLIT LAYOUT */
         .checkout-grid { display: flex; gap: 20px; align-items: flex-start; }
         .checkout-left { flex: 1; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
         .checkout-right { flex: 1; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border: 1px solid #e3f2fd; }
@@ -190,12 +189,12 @@
 <body>
 
     <header>
-        <!-- 10 SECOND LONG PRESS TRIGGER ON ZIVORA LOGO -->
+        <!-- NOW REDUCED TO 3 SECONDS + NO TEXT SELECTION -->
         <h1 id="secret-logo-btn" 
             onmousedown="startPressTimer()" 
             onmouseup="cancelPressTimer()" 
             onmouseleave="cancelPressTimer()"
-            ontouchstart="startPressTimer()" 
+            ontouchstart="startPressTimer(event)" 
             ontouchend="cancelPressTimer()">ZIVORA</h1>
             
         <nav>
@@ -238,7 +237,7 @@
         </div>
     </div>
 
-    <!-- 1. HOME PAGE (DIRECT ACCESS TO ALL CUSTOMERS) -->
+    <!-- 1. HOME PAGE -->
     <div id="home-page" class="page active-page">
         <div class="shipping-banner">
             🚚 Free Shipping on orders above Rs. 3,000!
@@ -361,7 +360,7 @@
         </div>
     </div>
 
-    <!-- 4. ADMIN DASHBOARD PAGE (ROLE-BASED ACCESS CONTROL) -->
+    <!-- 4. ADMIN DASHBOARD PAGE -->
     <div id="admin-dashboard-page" class="page">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
             <h2 style="color: #0d47a1;">Admin Management Dashboard</h2>
@@ -421,72 +420,18 @@
         let pressTimer = null;
         let currentAdminSession = JSON.parse(localStorage.getItem('zivora_active_admin')) || null;
 
-        /* ADMIN ACCOUNTS CONFIGURATION */
         const adminAccounts = [
-            {
-                name: "Admin.01",
-                email: "muhammadalishahid.20077@gmail.com",
-                pass: "Pzep6567$",
-                role: "Super Admin (Full Access to All Categories)",
-                allowedCategory: "all"
-            },
-            {
-                name: "Admin.2",
-                email: "sumairaanwark@gmail.com",
-                pass: "Pzep6567$",
-                role: "Jewelry Manager (Edit Access: Jewelry Only)",
-                allowedCategory: "jewelry"
-            },
-            {
-                name: "Admin.3",
-                email: "syedahajra965@gmail.com",
-                pass: "Pzep6567$",
-                role: "Kitchen Appliances Manager (Edit Access: Kitchen Only)",
-                allowedCategory: "kitchen"
-            }
+            { name: "Admin.01", email: "muhammadalishahid.20077@gmail.com", pass: "Pzep6567$", role: "Super Admin (Full Access to All Categories)", allowedCategory: "all" },
+            { name: "Admin.2", email: "sumairaanwark@gmail.com", pass: "Pzep6567$", role: "Jewelry Manager (Edit Access: Jewelry Only)", allowedCategory: "jewelry" },
+            { name: "Admin.3", email: "syedahajra965@gmail.com", pass: "Pzep6567$", role: "Kitchen Appliances Manager (Edit Access: Kitchen Only)", allowedCategory: "kitchen" }
         ];
 
-        /* DEMO & STORED ORDERS IN LOCALSTORAGE */
         let zivoraOrders = JSON.parse(localStorage.getItem('zivora_orders')) || [
-            {
-                id: "ZT-1001",
-                customer: "Usman Ali",
-                email: "usman@example.com",
-                phone: "03001234567",
-                address: "Gulberg, Lahore",
-                payment: "Cash on Delivery",
-                categoryKey: "kitchen",
-                items: "[Code: K0001] Stainless Steel Knife Set (x1)",
-                total: 1799,
-                status: "Pending"
-            },
-            {
-                id: "ZT-1002",
-                customer: "Ayesha Bibi",
-                email: "ayesha@example.com",
-                phone: "03111234567",
-                address: "DHA, Karachi",
-                payment: "Easypaisa",
-                categoryKey: "jewelry",
-                items: "[Code: J0001] Gold Plated Necklace (x1)",
-                total: 1599,
-                status: "Pending"
-            },
-            {
-                id: "ZT-1003",
-                customer: "Hamza Malik",
-                email: "hamza@example.com",
-                phone: "03211234567",
-                address: "F-7, Islamabad",
-                payment: "Allied Bank",
-                categoryKey: "watches",
-                items: "[Code: W0001] Men's Luxury Leather Strap Watch (x1)",
-                total: 2499,
-                status: "Pending"
-            }
+            { id: "ZT-1001", customer: "Usman Ali", email: "usman@example.com", phone: "03001234567", address: "Gulberg, Lahore", payment: "Cash on Delivery", categoryKey: "kitchen", items: "[Code: K0001] Stainless Steel Knife Set (x1)", total: 1799, status: "Pending" },
+            { id: "ZT-1002", customer: "Ayesha Bibi", email: "ayesha@example.com", phone: "03111234567", address: "DHA, Karachi", payment: "Easypaisa", categoryKey: "jewelry", items: "[Code: J0001] Gold Plated Necklace (x1)", total: 1599, status: "Pending" },
+            { id: "ZT-1003", customer: "Hamza Malik", email: "hamza@example.com", phone: "03211234567", address: "F-7, Islamabad", payment: "Allied Bank", categoryKey: "watches", items: "[Code: W0001] Men's Luxury Leather Strap Watch (x1)", total: 2499, status: "Pending" }
         ];
 
-        /* STORE PRODUCTS DATA */
         const storeData = {
             kitchen: {
                 title: "Kitchen Accessories",
@@ -540,11 +485,14 @@
             showPage('home-page');
         };
 
-        /* 10 SECOND LONG-PRESS DETECTOR ON LOGO */
-        function startPressTimer() {
+        /* FAST 3-SECOND TIMER (NO SELECTION ISSUES) */
+        function startPressTimer(e) {
+            if(e && e.type === "touchstart") {
+                // Prevent browser text selection on touch devices
+            }
             pressTimer = setTimeout(() => {
                 document.getElementById('admin-login-modal').style.display = 'flex';
-            }, 10000); // Exactly 10 Seconds
+            }, 3000); // Only 3 Seconds
         }
 
         function cancelPressTimer() {
@@ -780,7 +728,6 @@
             let orderDetailsText = cartItems.map((item, i) => `${i+1}. [Code: ${item.code}] ${item.name} (Qty: ${item.qty})`).join('\n');
             let mainCatKey = cartItems[0].catKey;
 
-            // Save order locally for Admin Dashboard
             let newOrderObj = {
                 id: "ZT-" + Math.floor(1000 + Math.random() * 9000),
                 customer: name,
