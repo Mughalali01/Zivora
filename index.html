@@ -8,7 +8,6 @@
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background-color: #f4f7f6; color: #333; overflow-x: hidden; }
         
-        /* Header & Nav Layout */
         header { 
             background-color: #0d47a1; 
             color: white; 
@@ -24,7 +23,6 @@
             gap: 10px;
         }
 
-        /* FIXED LOGO SELECT ISSUE */
         header h1 { 
             font-size: 24px; 
             font-weight: bold; 
@@ -34,7 +32,6 @@
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
-            -webkit-touch-callout: none; /* Mobile touch selection disabled */
         }
         header h1:hover { color: #90caf9; }
         
@@ -45,18 +42,19 @@
         .admin-nav-btn { background: #ff9800; color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 13px; cursor: pointer; display: none; }
         .cart-icon { background: #1976d2; padding: 5px 12px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 13px; white-space: nowrap; }
 
-        /* Live Scrolling Strip */
+        /* UPGRADED PROFESSIONAL LIVE STRIP */
         .marquee-strip {
-            background-color: #0b2240;
-            color: #ffeb3b;
-            padding: 6px 0;
+            background: linear-gradient(90deg, #0b2240, #1565c0, #0b2240);
+            color: #fffde7;
+            padding: 8px 0;
             font-size: 14px;
             font-weight: bold;
             overflow: hidden;
             white-space: nowrap;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            border-bottom: 2px solid #ffb300;
         }
 
-        /* Free Shipping Banner */
         .shipping-banner {
             background-color: #1e88e5;
             color: white;
@@ -110,6 +108,9 @@
         .form-group label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 14px; }
         .form-group input, .form-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 14px; }
 
+        .form-row { display: flex; gap: 10px; }
+        .form-row .form-group { flex: 1; }
+
         .checkout-grid { display: flex; gap: 20px; align-items: flex-start; }
         .checkout-left { flex: 1; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
         .checkout-right { flex: 1; background: white; padding: 25px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); border: 1px solid #e3f2fd; }
@@ -135,11 +136,22 @@
         .payment-details-info { margin-top: 8px; padding-left: 28px; font-size: 13px; color: #444; line-height: 1.5; }
         .payment-details-info code { background: #fff; padding: 2px 6px; border-radius: 4px; border: 1px solid #ccc; font-weight: bold; color: #0d47a1; }
 
+        /* ADVANCE COD WARNING BOX */
+        .cod-advance-box {
+            background-color: #ffebee;
+            border: 1px dashed #d32f2f;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 8px;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
         .cart-summary-item { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid #eee; }
         .cart-summary-item span { font-size: 14px; }
         .summary-total { margin-top: 15px; padding-top: 15px; border-top: 2px solid #0d47a1; font-weight: bold; font-size: 16px; display: flex; justify-content: space-between; }
 
-        /* HIDDEN ADMIN MODAL */
         .modal-overlay {
             display: none;
             position: fixed;
@@ -161,15 +173,12 @@
         .modal-box h3 { color: #0d47a1; margin-bottom: 15px; text-align: center; }
         .close-modal { position: absolute; top: 10px; right: 15px; font-size: 20px; cursor: pointer; color: #777; }
 
-        /* ADMIN DASHBOARD STYLES */
         .order-card-admin { background: white; padding: 15px; border-radius: 8px; margin-bottom: 15px; border-left: 5px solid #0d47a1; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
-        .order-card-admin header { background: none; box-shadow: none; color: #333; padding: 0; margin-bottom: 10px; }
         .status-badge { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; }
         .status-pending { background: #fff3e0; color: #e65100; }
         .status-shipped { background: #e3f2fd; color: #0d47a1; }
         .status-delivered { background: #e8f5e9; color: #2e7d32; }
 
-        /* FOOTER & LOGO PAYMENT BADGES */
         footer { text-align: center; padding: 25px 15px; background-color: #0b2240; color: white; margin-top: 40px; }
         .payment-section { margin-bottom: 15px; }
         .payment-title { font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: #90caf9; margin-bottom: 15px; }
@@ -189,7 +198,6 @@
 <body>
 
     <header>
-        <!-- NOW REDUCED TO 3 SECONDS + NO TEXT SELECTION -->
         <h1 id="secret-logo-btn" 
             onmousedown="startPressTimer()" 
             onmouseup="cancelPressTimer()" 
@@ -207,10 +215,10 @@
         </nav>
     </header>
 
-    <!-- LIVE SCROLLING STRIP -->
+    <!-- NEW ATTRACTIVE LIVE STRIP -->
     <div class="marquee-strip">
-        <marquee behavior="scroll" direction="left" scrollamount="6">
-            ✨ Welcome to Zivora Store! Enjoy High-Quality Products & Fast Cash on Delivery across Pakistan! ✨
+        <marquee behavior="scroll" direction="left" scrollamount="7">
+            🔥 <strong>WELCOME TO ZIVORA STORE:</strong> 🔥 Exclusive Premium Quality Products | 🚀 Fast Shipping Across Pakistan | 🛡️ 100% Satisfaction Guaranteed!
         </marquee>
     </div>
 
@@ -218,21 +226,21 @@
     <div class="modal-overlay" id="admin-login-modal">
         <div class="modal-box">
             <span class="close-modal" onclick="closeAdminModal()">&times;</span>
-            <h3>Please Enter Your Information</h3>
+            <h3>Admin Portal Login</h3>
             <form onsubmit="handleAdminLogin(event)">
                 <div class="form-group">
-                    <label>Name</label>
+                    <label>Admin Name</label>
                     <input type="text" id="admin-name-input" placeholder="Enter Admin Name" required>
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="admin-email-input" placeholder="Enter Admin Email" required>
+                    <label>Email Address</label>
+                    <input type="email" id="admin-email-input" placeholder="Enter Email" required>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
                     <input type="password" id="admin-pass-input" placeholder="Enter Password" required>
                 </div>
-                <button type="submit" class="btn btn-primary">Login to Admin Dashboard</button>
+                <button type="submit" class="btn btn-primary">Login to Admin Panel</button>
             </form>
         </div>
     </div>
@@ -281,17 +289,50 @@
         <div class="product-grid" id="product-container"></div>
     </div>
 
-    <!-- 3. CHECKOUT PAGE -->
+    <!-- 3. CHECKOUT PAGE (UPDATED ACCORDING TO YOUR NOTE) -->
     <div id="checkout-page" class="page">
         <h2 style="text-align: center; color: #0d47a1; margin-bottom: 20px; font-size: 22px;">Checkout Details</h2>
         <div class="checkout-grid">
             <div class="checkout-left">
-                <h3 style="font-size: 16px; color: #0d47a1; margin-bottom: 15px;">Contact & Shipping Information</h3>
+                <h3 style="font-size: 16px; color: #0d47a1; margin-bottom: 15px;">Shipping Information</h3>
                 <form onsubmit="handlePlaceOrder(event)">
-                    <div class="form-group"><label>Email Address *</label><input type="email" id="co-email" placeholder="name@example.com" required></div>
-                    <div class="form-group"><label>Full Name *</label><input type="text" id="co-name" placeholder="Enter full name" required></div>
-                    <div class="form-group"><label>WhatsApp Number *</label><input type="text" id="co-phone" placeholder="e.g. 0300 1234567" required></div>
-                    <div class="form-group"><label>Full Address *</label><input type="text" id="co-address" placeholder="House #, Street, City" required></div>
+                    
+                    <div class="form-group">
+                        <label>Name *</label>
+                        <input type="text" id="co-name" placeholder="Enter Full Name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Email *</label>
+                        <input type="email" id="co-email" placeholder="name@example.com" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Phone No *</label>
+                            <input type="text" id="co-phone" placeholder="e.g. 03211234567" required>
+                        </div>
+                        <div class="form-group">
+                            <label>WhatsApp No *</label>
+                            <input type="text" id="co-whatsapp" placeholder="e.g. 03211234567" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Address *</label>
+                        <input type="text" id="co-address" placeholder="House #, Street Address" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>City *</label>
+                            <input type="text" id="co-city" placeholder="e.g. Lahore" required>
+                        </div>
+                        <div class="form-group">
+                            <label>State / Province *</label>
+                            <input type="text" id="co-state" placeholder="e.g. Punjab" required>
+                        </div>
+                    </div>
 
                     <div class="payment-options-title">Select Payment Method:</div>
                     
@@ -300,7 +341,12 @@
                             <input type="radio" name="payment_method" value="Cash on Delivery" id="pay-cod" checked>
                             <label for="pay-cod" style="cursor:pointer;">💵 Cash on Delivery (COD)</label>
                         </div>
-                        <div class="payment-details-info">Pay in cash to the rider when your parcel is delivered at your doorstep.</div>
+                        <div class="payment-details-info">
+                            پروڈکٹ کی قیمت کیش میں ڈیلیوری کے وقت ادا کریں۔
+                            <div class="cod-advance-box">
+                                ⚠️ <strong>نوٹ:</strong> فیک آرڈرز کی روک تھام کے لیے ڈیلیوری چارجز (Rs. 300) پہلے ایزی پیسہ یا بینک ٹرانسفر کے ذریعے بھیجنا لازمی ہیں تاکہ آپ کا آرڈر کنفرم ہو سکے۔
+                            </div>
+                        </div>
                     </div>
 
                     <div class="payment-option-card" id="card-easypaisa" onclick="selectPaymentMethod('easypaisa')">
@@ -427,9 +473,7 @@
         ];
 
         let zivoraOrders = JSON.parse(localStorage.getItem('zivora_orders')) || [
-            { id: "ZT-1001", customer: "Usman Ali", email: "usman@example.com", phone: "03001234567", address: "Gulberg, Lahore", payment: "Cash on Delivery", categoryKey: "kitchen", items: "[Code: K0001] Stainless Steel Knife Set (x1)", total: 1799, status: "Pending" },
-            { id: "ZT-1002", customer: "Ayesha Bibi", email: "ayesha@example.com", phone: "03111234567", address: "DHA, Karachi", payment: "Easypaisa", categoryKey: "jewelry", items: "[Code: J0001] Gold Plated Necklace (x1)", total: 1599, status: "Pending" },
-            { id: "ZT-1003", customer: "Hamza Malik", email: "hamza@example.com", phone: "03211234567", address: "F-7, Islamabad", payment: "Allied Bank", categoryKey: "watches", items: "[Code: W0001] Men's Luxury Leather Strap Watch (x1)", total: 2499, status: "Pending" }
+            { id: "ZT-1001", customer: "Usman Ali", email: "usman@example.com", phone: "03001234567", whatsapp: "03001234567", address: "Gulberg III", city: "Lahore", state: "Punjab", payment: "Cash on Delivery", categoryKey: "kitchen", items: "[Code: K0001] Stainless Steel Knife Set (x1)", total: 1799, status: "Pending" }
         ];
 
         const storeData = {
@@ -485,20 +529,14 @@
             showPage('home-page');
         };
 
-        /* FAST 3-SECOND TIMER (NO SELECTION ISSUES) */
         function startPressTimer(e) {
-            if(e && e.type === "touchstart") {
-                // Prevent browser text selection on touch devices
-            }
             pressTimer = setTimeout(() => {
                 document.getElementById('admin-login-modal').style.display = 'flex';
-            }, 3000); // Only 3 Seconds
+            }, 3000);
         }
 
         function cancelPressTimer() {
-            if (pressTimer) {
-                clearTimeout(pressTimer);
-            }
+            if (pressTimer) clearTimeout(pressTimer);
         }
 
         function closeAdminModal() {
@@ -557,8 +595,9 @@
                         <strong>Order ID: ${order.id}</strong>
                         <span class="status-badge status-${order.status.toLowerCase()}">${order.status}</span>
                     </div>
-                    <p style="font-size:13px; margin-bottom:4px;">👤 <strong>Customer:</strong> ${order.customer} | 📞 ${order.phone}</p>
-                    <p style="font-size:13px; margin-bottom:4px;">📍 <strong>Address:</strong> ${order.address}</p>
+                    <p style="font-size:13px; margin-bottom:4px;">👤 <strong>Customer:</strong> ${order.customer} | ✉️ ${order.email}</p>
+                    <p style="font-size:13px; margin-bottom:4px;">📞 <strong>Phone:</strong> ${order.phone} | 💬 <strong>WhatsApp:</strong> ${order.whatsapp || order.phone}</p>
+                    <p style="font-size:13px; margin-bottom:4px;">📍 <strong>Address:</strong> ${order.address}, ${order.city || ''}, ${order.state || ''}</p>
                     <p style="font-size:13px; margin-bottom:4px;">📦 <strong>Items:</strong> ${order.items}</p>
                     <p style="font-size:13px; margin-bottom:10px;">💳 <strong>Payment:</strong> ${order.payment} | 💰 <strong>Total:</strong> Rs. ${order.total.toLocaleString()}</p>
                     
@@ -718,7 +757,10 @@
             let name = document.getElementById('co-name').value;
             let email = document.getElementById('co-email').value;
             let phone = document.getElementById('co-phone').value;
+            let whatsapp = document.getElementById('co-whatsapp').value;
             let address = document.getElementById('co-address').value;
+            let city = document.getElementById('co-city').value;
+            let state = document.getElementById('co-state').value;
             let paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
 
             let subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.qty), 0);
@@ -733,7 +775,10 @@
                 customer: name,
                 email: email,
                 phone: phone,
+                whatsapp: whatsapp,
                 address: address,
+                city: city,
+                state: state,
                 payment: paymentMethod,
                 categoryKey: mainCatKey,
                 items: orderDetailsText.replace(/\n/g, ', '),
@@ -746,9 +791,10 @@
 
             let alertMessage = `🛍️ *NEW ORDER ON ZIVORA STORE*\n\n` +
                 `👤 *Customer Name:* ${name}\n` +
-                `✉️ *Customer Email:* ${email}\n` +
-                `📞 *WhatsApp:* ${phone}\n` +
-                `📍 *Address:* ${address}\n` +
+                `✉️ *Email:* ${email}\n` +
+                `📞 *Phone:* ${phone}\n` +
+                `💬 *WhatsApp:* ${whatsapp}\n` +
+                `📍 *Address:* ${address}, ${city}, ${state}\n` +
                 `💳 *Payment Method:* ${paymentMethod}\n\n` +
                 `🛒 *ORDER ITEMS:*\n${orderDetailsText}\n\n` +
                 `🚚 *Shipping:* ${shipping === 0 ? 'FREE' : 'Rs. 300'}\n` +
