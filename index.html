@@ -747,44 +747,74 @@
             }
         }
 
-        function handlePlaceOrder(e) {
-            e.preventDefault();
-            if(cartItems.length === 0) {
-                alert('Your cart is empty! Please add products before placing an order.');
-                return;
-            }
+       function handlePlaceOrder(e) {
+    e.preventDefault();
+    if(cartItems.length === 0) {
+        alert('Your cart is empty! Please add products before placing an order.');
+        return;
+    }
 
-            let name = document.getElementById('co-name').value;
-            let email = document.getElementById('co-email').value;
-            let phone = document.getElementById('co-phone').value;
-            let whatsapp = document.getElementById('co-whatsapp').value;
-            let address = document.getElementById('co-address').value;
-            let city = document.getElementById('co-city').value;
-            let state = document.getElementById('co-state').value;
-            let paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
+    let name = document.getElementById('co-name').value;
+    let email = document.getElementById('co-email').value;
+    let phone = document.getElementById('co-phone').value;
+    let whatsapp = document.getElementById('co-whatsapp').value;
+    let address = document.getElementById('co-address').value;
+    let city = document.getElementById('co-city').value;
+    let state = document.getElementById('co-state').value;
+    let paymentMethod = document.querySelector('input[name="payment_method"]:checked').value;
 
-            let subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.qty), 0);
-            let shipping = subtotal >= 3000 ? 0 : 300;
-            let total = subtotal + shipping;
+    let subtotal = cartItems.reduce((acc, item) => acc + (item.price * item.qty), 0);
+    let shipping = subtotal >= 3000 ? 0 : 300;
+    let total = subtotal + shipping;
 
-            let orderDetailsText = cartItems.map((item, i) => `${i+1}. [Code: ${item.code}] ${item.name} (Qty: ${item.qty})`).join('\n');
-            let mainCatKey = cartItems[0].catKey;
+    let orderDetailsText = cartItems.map((item, i) => `${i+1}. [Code: ${item.code}] ${item.name} (Qty: ${item.qty})`).join('\n');
+    let mainCatKey = cartItems[0].catKey;
 
-            let newOrderObj = {
-                id: "ZT-" + Math.floor(1000 + Math.random() * 9000),
-                customer: name,
-                email: email,
-                phone: phone,
-                whatsapp: whatsapp,
-                address: address,
-                city: city,
-                state: state,
-                payment: paymentMethod,
-                categoryKey: mainCatKey,
-                items: orderDetailsText.replace(/\n/g, ', '),
-                total: total,
-                status: "Pending"
-            };
+    // Save to Local Database for Admin Panel
+    let newOrderObj = {
+        id: "ZT-" + Math.floor(1000 + Math.random() * 9000),
+        customer: name,
+        email: email,
+        phone: phone,
+        whatsapp: whatsapp,
+        address: `${address}, ${city}, ${state}`,
+        payment: paymentMethod,
+        categoryKey: mainCatKey,
+        items: orderDetailsText.replace(/\n/g, ', '),
+        total: total,
+        status: "Pending"
+    };
+
+    zivoraOrders.unshift(newOrderObj);
+    localStorage.setItem('zivora_orders', JSON.stringify(zivoraOrders));
+
+    // EXACT BEAUTIFUL EMOJI MESSAGE FORMAT (As seen in the upper screenshot)
+    let alertMessage = `🛍️ *NEW ORDER ON ZIVORA STORE*\n\n` +
+        `👤 *Customer Name:* ${name}\n` +
+        `✉️ *Customer Email:* ${email}\n` +
+        `📞 *Phone:* ${phone}\n` +
+        `💬 *WhatsApp:* ${whatsapp}\n` +
+        `📍 *Address:* ${address}, ${city}, ${state}\n` +
+        `💳 *Payment Method:* ${paymentMethod}\n\n` +
+        `🛒 *ORDER ITEMS:*\n${orderDetailsText}\n\n` +
+        `🚚 *Shipping:* ${shipping === 0 ? 'FREE' : 'Rs. 300'}\n` +
+        `💰 *TOTAL AMOUNT:* Rs. ${total}`;
+
+    // WhatsApp Redirect
+    let waUrl = `https://wa.me/923216307680?text=${encodeURIComponent(alertMessage)}`;
+    window.open(waUrl, '_blank');
+
+    // Email Redirect
+    let mailSubject = encodeURIComponent(`New Order Received from ${name} - Zivora Store`);
+    let mailBody = encodeURIComponent(alertMessage);
+    let mailUrl = `mailto:muhammadalishahid.20077@gmail.com?subject=${mailSubject}&body=${mailBody}`;
+    window.open(mailUrl, '_blank');
+
+    alert('Order placed successfully! Order notification sent via WhatsApp & Email.');
+    cartItems = [];
+    document.getElementById('cart-count').innerText = '0';
+    showPage('home-page');
+}
 
             zivoraOrders.unshift(newOrderObj);
             localStorage.setItem('zivora_orders', JSON.stringify(zivoraOrders));
