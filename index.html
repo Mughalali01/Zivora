@@ -42,7 +42,6 @@
         .admin-nav-btn { background: #ff9800; color: #fff; padding: 4px 10px; border-radius: 4px; font-weight: bold; font-size: 13px; cursor: pointer; display: none; }
         .cart-icon { background: #1976d2; padding: 5px 12px; border-radius: 20px; font-weight: bold; cursor: pointer; font-size: 13px; white-space: nowrap; }
 
-        /* UPGRADED PROFESSIONAL LIVE STRIP */
         .marquee-strip {
             background: linear-gradient(90deg, #0b2240, #1565c0, #0b2240);
             color: #fffde7;
@@ -136,7 +135,6 @@
         .payment-details-info { margin-top: 8px; padding-left: 28px; font-size: 13px; color: #444; line-height: 1.5; }
         .payment-details-info code { background: #fff; padding: 2px 6px; border-radius: 4px; border: 1px solid #ccc; font-weight: bold; color: #0d47a1; }
 
-        /* ADVANCE COD WARNING BOX */
         .cod-advance-box {
             background-color: #ffebee;
             border: 1px dashed #d32f2f;
@@ -215,14 +213,13 @@
         </nav>
     </header>
 
-    <!-- NEW ATTRACTIVE LIVE STRIP -->
     <div class="marquee-strip">
         <marquee behavior="scroll" direction="left" scrollamount="7">
             🔥 <strong>WELCOME TO ZIVORA STORE:</strong> 🔥 Exclusive Premium Quality Products | 🚀 Fast Shipping Across Pakistan | 🛡️ 100% Satisfaction Guaranteed!
         </marquee>
     </div>
 
-    <!-- SECRET HIDDEN ADMIN MODAL LOGIN -->
+    <!-- ADMIN LOGIN MODAL -->
     <div class="modal-overlay" id="admin-login-modal">
         <div class="modal-box">
             <span class="close-modal" onclick="closeAdminModal()">&times;</span>
@@ -282,14 +279,14 @@
         <p id="no-results" style="display: none; text-align: center; color: #777; margin-top: 20px;">No matching categories found.</p>
     </div>
 
-    <!-- 2. PRODUCTS LISTING PAGE -->
+    <!-- 2. PRODUCTS PAGE -->
     <div id="products-page" class="page">
         <button class="back-btn" onclick="showPage('home-page')">← Back to Categories</button>
         <h2 id="category-title" style="color: #0d47a1; margin-bottom: 15px; font-size: 22px;"></h2>
         <div class="product-grid" id="product-container"></div>
     </div>
 
-    <!-- 3. CHECKOUT PAGE (UPDATED ACCORDING TO YOUR NOTE) -->
+    <!-- 3. CHECKOUT PAGE -->
     <div id="checkout-page" class="page">
         <h2 style="text-align: center; color: #0d47a1; margin-bottom: 20px; font-size: 22px;">Checkout Details</h2>
         <div class="checkout-grid">
@@ -422,7 +419,7 @@
         <div id="admin-orders-list"></div>
     </div>
 
-    <!-- OTHER PAGES -->
+    <!-- CONTACT / ABOUT / SERVICES -->
     <div id="contact-page" class="page">
         <div class="form-box">
             <h2 style="color: #0d47a1; font-size: 20px;">Ways to Reach Us</h2><br>
@@ -467,13 +464,13 @@
         let currentAdminSession = JSON.parse(localStorage.getItem('zivora_active_admin')) || null;
 
         const adminAccounts = [
-            { name: "Admin.01", email: "muhammadalishahid.20077@gmail.com", pass: "Pzep6567$", role: "Super Admin (Full Access to All Categories)", allowedCategory: "all" },
-            { name: "Admin.2", email: "sumairaanwark@gmail.com", pass: "Pzep6567$", role: "Jewelry Manager (Edit Access: Jewelry Only)", allowedCategory: "jewelry" },
-            { name: "Admin.3", email: "syedahajra965@gmail.com", pass: "Pzep6567$", role: "Kitchen Appliances Manager (Edit Access: Kitchen Only)", allowedCategory: "kitchen" }
+            { name: "Admin.01", email: "muhammadalishahid.20077@gmail.com", pass: "Pzep6567$", role: "Super Admin (Full Access)", allowedCategory: "all" },
+            { name: "Admin.2", email: "sumairaanwark@gmail.com", pass: "Pzep6567$", role: "Jewelry Manager", allowedCategory: "jewelry" },
+            { name: "Admin.3", email: "syedahajra965@gmail.com", pass: "Pzep6567$", role: "Kitchen Manager", allowedCategory: "kitchen" }
         ];
 
         let zivoraOrders = JSON.parse(localStorage.getItem('zivora_orders')) || [
-            { id: "ZT-1001", customer: "Usman Ali", email: "usman@example.com", phone: "03001234567", whatsapp: "03001234567", address: "Gulberg III", city: "Lahore", state: "Punjab", payment: "Cash on Delivery", categoryKey: "kitchen", items: "[Code: K0001] Stainless Steel Knife Set (x1)", total: 1799, status: "Pending" }
+            { id: "ZT-1001", customer: "Usman Ali", email: "usman@example.com", phone: "03001234567", whatsapp: "03001234567", address: "Gulberg III, Lahore, Punjab", payment: "Cash on Delivery", categoryKey: "kitchen", items: "1. [Code: K0001] Stainless Steel Knife Set (Qty: 1)", total: 1799, status: "Pending" }
         ];
 
         const storeData = {
@@ -529,7 +526,7 @@
             showPage('home-page');
         };
 
-        function startPressTimer(e) {
+        function startPressTimer() {
             pressTimer = setTimeout(() => {
                 document.getElementById('admin-login-modal').style.display = 'flex';
             }, 3000);
@@ -597,7 +594,7 @@
                     </div>
                     <p style="font-size:13px; margin-bottom:4px;">👤 <strong>Customer:</strong> ${order.customer} | ✉️ ${order.email}</p>
                     <p style="font-size:13px; margin-bottom:4px;">📞 <strong>Phone:</strong> ${order.phone} | 💬 <strong>WhatsApp:</strong> ${order.whatsapp || order.phone}</p>
-                    <p style="font-size:13px; margin-bottom:4px;">📍 <strong>Address:</strong> ${order.address}, ${order.city || ''}, ${order.state || ''}</p>
+                    <p style="font-size:13px; margin-bottom:4px;">📍 <strong>Address:</strong> ${order.address}</p>
                     <p style="font-size:13px; margin-bottom:4px;">📦 <strong>Items:</strong> ${order.items}</p>
                     <p style="font-size:13px; margin-bottom:10px;">💳 <strong>Payment:</strong> ${order.payment} | 💰 <strong>Total:</strong> Rs. ${order.total.toLocaleString()}</p>
                     
@@ -608,7 +605,7 @@
                             <button class="btn btn-primary" style="padding:4px 10px; width:auto; font-size:12px; background:#f57c00;" onclick="updateOrderStatus(${index}, 'Shipped')">Shift Mode</button>
                             <button class="btn btn-primary" style="padding:4px 10px; width:auto; font-size:12px; background:#388e3c;" onclick="updateOrderStatus(${index}, 'Delivered')">Deliver Mode</button>
                         ` : `
-                            <span style="color:#777; font-size:12px; font-style:italic;">🔒 View-Only Mode (Read Only)</span>
+                            <span style="color:#777; font-size:12px; font-style:italic;">🔒 View-Only Mode</span>
                         `}
                     </div>
                 `;
@@ -638,6 +635,8 @@
 
         function openCategory(categoryKey) {
             let catData = storeData[categoryKey];
+            if (!catData) return;
+            
             document.getElementById('category-title').innerText = catData.title;
             let container = document.getElementById('product-container');
             container.innerHTML = '';
@@ -776,9 +775,7 @@
                 email: email,
                 phone: phone,
                 whatsapp: whatsapp,
-                address: address,
-                city: city,
-                state: state,
+                address: `${address}, ${city}, ${state}`,
                 payment: paymentMethod,
                 categoryKey: mainCatKey,
                 items: orderDetailsText.replace(/\n/g, ', '),
@@ -789,9 +786,10 @@
             zivoraOrders.unshift(newOrderObj);
             localStorage.setItem('zivora_orders', JSON.stringify(zivoraOrders));
 
+            // EXACT BEAUTIFUL EMOJI MESSAGE FORMAT (Matches your upper image style)
             let alertMessage = `🛍️ *NEW ORDER ON ZIVORA STORE*\n\n` +
                 `👤 *Customer Name:* ${name}\n` +
-                `✉️ *Email:* ${email}\n` +
+                `✉️ *Customer Email:* ${email}\n` +
                 `📞 *Phone:* ${phone}\n` +
                 `💬 *WhatsApp:* ${whatsapp}\n` +
                 `📍 *Address:* ${address}, ${city}, ${state}\n` +
